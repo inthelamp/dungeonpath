@@ -1,0 +1,56 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="Curve2D" id=1]
+
+bake_interval = 5.0
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 910.834, 32.8116, 0, 0, 0, 0, 482.433, 31.6262, 10.9124, -89.7967, 15.0352, 121.692, 312.237, 181.316, 0, 0, 0, 0, 480.382, 347.41, 0, 0, 0, 0, 915.098, 343.309, -20.778, 96.6681, 12.8599, -50.4159, 1089.19, 184.603, 0, 0, 0, 0, 910.834, 32.8116 )
+}
+
+[node name="MobPath" type="Path2D"]
+
+self_modulate = Color( 0.5, 0.6, 1, 0.7 )
+position = Vector2( 475.797, 172.316 )
+curve = SubResource( 1 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="MobSpawnLocation 0" type="PathFollow2D" parent="." index="0"]
+
+position = Vector2( 810.745, 32.5346 )
+rotation = -3.13882
+offset = 100.0
+h_offset = 0.0
+v_offset = 0.0
+rotate = true
+cubic_interp = true
+loop = true
+lookahead = 4.0
+_sections_unfolded = [ "Pause", "Transform" ]
+
+[node name="MobSpawnLocation 1" type="PathFollow2D" parent="." index="1"]
+
+position = Vector2( 510.492, 31.7038 )
+rotation = -3.13883
+offset = 400.0
+h_offset = 0.0
+v_offset = 0.0
+rotate = true
+cubic_interp = true
+loop = true
+lookahead = 4.0
+_sections_unfolded = [ "Pause", "Transform" ]
+
+[node name="MobSpawnLocation 2" type="PathFollow2D" parent="." index="2"]
+
+position = Vector2( 320.909, 216.364 )
+rotation = 1.19495
+offset = 700.0
+h_offset = 0.0
+v_offset = 0.0
+rotate = true
+cubic_interp = true
+loop = true
+lookahead = 4.0
+_sections_unfolded = [ "Pause", "Transform" ]
+
+

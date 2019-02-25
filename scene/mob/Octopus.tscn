@@ -1,0 +1,227 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://script/mob/MovingMob.cs" type="Script" id=1]
+[ext_resource path="res://font/Xolonium-Regular.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://scene/hud/HealthPoint.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scene/hud/MagicPoint.tscn" type="PackedScene" id=4]
+[ext_resource path="res://art/mob/octopus.png" type="Texture" id=5]
+[ext_resource path="res://audio/hit.wav" type="AudioStream" id=6]
+
+
+[sub_resource type="DynamicFont" id=1]
+
+size = 10
+use_mipmaps = false
+use_filter = false
+font_data = ExtResource( 2 )
+_sections_unfolded = [ "Font", "Settings" ]
+
+[sub_resource type="Animation" id=2]
+
+resource_name = "idle"
+length = 4.0
+loop = false
+step = 1.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2, 3, 4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 1, 0 ]
+}
+
+[sub_resource type="Animation" id=3]
+
+resource_name = "walk"
+length = 1.6
+loop = false
+step = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.4, 0.8, 1.2, 1.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 1, 0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.4, 0.8, 1.2, 1.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 10.0, 0.0, -10.0, 0.0 ]
+}
+
+[sub_resource type="CircleShape2D" id=4]
+
+custom_solver_bias = 0.0
+radius = 13.2009
+
+[node name="Octopus" type="RigidBody2D" index="0"]
+
+pause_mode = 1
+position = Vector2( 370, 209.663 )
+input_pickable = false
+collision_layer = 8
+collision_mask = 3
+mode = 2
+mass = 1.0
+friction = 0.0
+bounce = 0.0
+gravity_scale = 1.0
+custom_integrator = false
+continuous_cd = 0
+contacts_reported = 4
+contact_monitor = false
+sleeping = false
+can_sleep = true
+linear_velocity = Vector2( 0, 0 )
+linear_damp = -1.0
+angular_velocity = 0.0
+angular_damp = -1.0
+script = ExtResource( 1 )
+_sections_unfolded = [ "Angular", "Applied Forces", "Collision", "Linear", "Pause", "Pickable", "Transform" ]
+Level = 100
+
+[node name="BasicInfo" type="Label" parent="." index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = -55.0
+margin_top = -60.0
+margin_right = 57.0
+margin_bottom = -31.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = SubResource( 1 )
+text = "Octopus
+[Level 100]"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "Rect", "custom_fonts" ]
+
+[node name="HealthPoint" parent="." index="1" instance=ExtResource( 3 )]
+
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -89.0
+margin_top = 1.0
+margin_right = 61.0
+margin_bottom = 16.0
+rect_scale = Vector2( 0.8, 0.8 )
+
+[node name="MagicPoint" parent="." index="2" instance=ExtResource( 4 )]
+
+visible = false
+margin_left = -57.0
+margin_top = 45.0
+margin_right = 93.0
+margin_bottom = 60.0
+rect_scale = Vector2( 0.8, 0.8 )
+
+[node name="Enabler" type="VisibilityEnabler2D" parent="." index="3"]
+
+scale = Vector2( 13, 6 )
+rect = Rect2( -10, -10, 20, 20 )
+pause_animations = true
+freeze_bodies = true
+pause_particles = false
+pause_animated_sprites = true
+process_parent = false
+physics_process_parent = false
+_sections_unfolded = [ "Transform" ]
+
+[node name="Anim" type="AnimationPlayer" parent="." index="4"]
+
+root_node = NodePath("..")
+autoplay = ""
+playback_process_mode = 1
+playback_default_blend_time = 0.0
+playback_speed = 1.0
+anims/idle = SubResource( 2 )
+anims/walk = SubResource( 3 )
+blend_times = [  ]
+
+[node name="Sprite" type="Sprite" parent="." index="5"]
+
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 5 )
+hframes = 3
+_sections_unfolded = [ "Animation", "Transform" ]
+
+[node name="Collision" type="CollisionShape2D" parent="." index="6"]
+
+position = Vector2( 0.0791413, -8.80904 )
+scale = Vector2( 1.94668, 1.86321 )
+shape = SubResource( 4 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="RayCastRight" type="RayCast2D" parent="." index="7"]
+
+position = Vector2( -35, -25 )
+scale = Vector2( 1, 1.5 )
+enabled = true
+exclude_parent = true
+cast_to = Vector2( 0, 40 )
+collision_mask = 1
+_sections_unfolded = [ "Transform" ]
+
+[node name="RayCastLeft" type="RayCast2D" parent="." index="8"]
+
+position = Vector2( 35, -25 )
+scale = Vector2( 1, 1.5 )
+enabled = true
+exclude_parent = true
+cast_to = Vector2( 0, 40 )
+collision_mask = 1
+_sections_unfolded = [ "Transform" ]
+
+[node name="CombatDelay" type="Timer" parent="." index="9"]
+
+process_mode = 1
+wait_time = 3.0
+one_shot = false
+autostart = false
+
+[node name="Sounds" type="Node" parent="." index="10"]
+
+[node name="Hit" type="AudioStreamPlayer" parent="Sounds" index="0"]
+
+stream = ExtResource( 6 )
+volume_db = 0.0
+pitch_scale = 1.0
+autoplay = false
+mix_target = 2
+bus = "Hit"
+
+[connection signal="viewport_exited" from="Enabler" to="." method="OnEnablerViewportExited"]
+
+[connection signal="timeout" from="CombatDelay" to="." method="OnCombatDelayTimeout"]
+
+

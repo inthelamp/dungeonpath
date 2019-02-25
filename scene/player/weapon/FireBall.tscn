@@ -1,0 +1,241 @@
+[gd_scene load_steps=17 format=2]
+
+[ext_resource path="res://script/player/weapon/LongRangeAttack.cs" type="Script" id=1]
+[ext_resource path="res://art/weapon/fire_particle.png" type="Texture" id=2]
+[ext_resource path="res://art/weapon/smoke_particle.png" type="Texture" id=3]
+[ext_resource path="res://audio/shoot.wav" type="AudioStream" id=4]
+[ext_resource path="res://audio/hit.wav" type="AudioStream" id=5]
+
+
+[sub_resource type="ShaderMaterial" id=1]
+
+render_priority = 0
+
+[sub_resource type="CanvasItemMaterial" id=2]
+
+render_priority = 0
+blend_mode = 1
+light_mode = 0
+
+[sub_resource type="Curve" id=3]
+
+min_value = -360.0
+max_value = 360.0
+bake_resolution = 100
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 85.0781 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=4]
+
+flags = 4
+width = 2048
+curve = SubResource( 3 )
+
+[sub_resource type="Curve" id=5]
+
+min_value = 0.0
+max_value = 1.0
+bake_resolution = 100
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.295898 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=6]
+
+flags = 4
+width = 2048
+curve = SubResource( 5 )
+
+[sub_resource type="ParticlesMaterial" id=7]
+
+render_priority = 0
+trail_divisor = 1
+emission_shape = 1
+emission_sphere_radius = 8.0
+flag_align_y = false
+flag_rotate_y = false
+flag_disable_z = true
+spread = 45.0
+flatness = 0.0
+gravity = Vector3( 0, -26, 0 )
+initial_velocity = 0.0
+initial_velocity_random = 0.0
+angular_velocity = 0.0
+angular_velocity_random = 0.0
+angular_velocity_curve = SubResource( 4 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+linear_accel = 50.0
+linear_accel_random = 1.0
+radial_accel = 0.0
+radial_accel_random = 0.0
+tangential_accel = 0.0
+tangential_accel_random = 0.0
+damping = 2.0
+damping_random = 0.0
+angle = 0.0
+angle_random = 0.0
+scale = 0.8
+scale_random = 0.3
+scale_curve = SubResource( 6 )
+color = Color( 0.859375, 0.180278, 0.0469971, 1 )
+hue_variation = 0.0
+hue_variation_random = 0.0
+anim_speed = 0.0
+anim_speed_random = 0.0
+anim_offset = 0.0
+anim_offset_random = 0.0
+anim_loop = false
+_sections_unfolded = [ "Animation", "Gravity" ]
+
+[sub_resource type="CanvasItemMaterial" id=8]
+
+render_priority = 0
+blend_mode = 1
+light_mode = 0
+
+[sub_resource type="Gradient" id=9]
+
+offsets = PoolRealArray( 0, 0.172, 0.302, 0.391, 1 )
+colors = PoolColorArray( 0.917969, 0.706406, 0.0717163, 1, 1, 0.396078, 0, 1, 0.678431, 0.27451, 0.168627, 0.231373, 0.513726, 0.360784, 0.196078, 0.0784314, 1, 1, 1, 0.0823529 )
+
+[sub_resource type="GradientTexture" id=10]
+
+flags = 4
+gradient = SubResource( 9 )
+width = 2048
+
+[sub_resource type="ParticlesMaterial" id=11]
+
+render_priority = 0
+trail_divisor = 1
+emission_shape = 2
+emission_box_extents = Vector3( 10, 10, 40 )
+flag_align_y = false
+flag_rotate_y = true
+flag_disable_z = true
+spread = 45.0
+flatness = 0.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 1.0
+initial_velocity_random = 0.0
+angular_velocity = 26.0
+angular_velocity_random = 0.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+linear_accel = 0.0
+linear_accel_random = 0.0
+radial_accel = 1.0
+radial_accel_random = 0.3
+tangential_accel = 0.0
+tangential_accel_random = 0.0
+damping = 10.0
+damping_random = 0.0
+angle = 0.0
+angle_random = 0.0
+scale = 1.0
+scale_random = 0.0
+color_ramp = SubResource( 10 )
+hue_variation = 0.0
+hue_variation_random = 0.0
+anim_speed = 0.0
+anim_speed_random = 0.0
+anim_offset = 0.0
+anim_offset_random = 0.0
+anim_loop = false
+_sections_unfolded = [ "Color", "Scale" ]
+
+[node name="FireBall" type="KinematicBody2D"]
+
+material = SubResource( 1 )
+scale = Vector2( 0.2, 0.2 )
+input_pickable = false
+collision_layer = 16
+collision_mask = 13
+collision/safe_margin = 0.08
+script = ExtResource( 1 )
+_sections_unfolded = [ "Collision", "Transform", "collision" ]
+__meta__ = {
+"_edit_group_": true
+}
+Speed = 0
+
+[node name="Fire" type="Particles2D" parent="." index="0"]
+
+material = SubResource( 2 )
+emitting = true
+amount = 35
+lifetime = 1.0
+one_shot = false
+preprocess = 0.1
+speed_scale = 1.0
+explosiveness = 0.0
+randomness = 0.0
+fixed_fps = 0
+fract_delta = true
+visibility_rect = Rect2( -100, -100, 200, 200 )
+local_coords = true
+draw_order = 0
+process_material = SubResource( 7 )
+texture = ExtResource( 2 )
+normal_map = null
+h_frames = 1
+v_frames = 1
+_sections_unfolded = [ "Drawing", "Material", "Process Material", "Textures", "Time", "Transform" ]
+
+[node name="Explosion" type="Particles2D" parent="." index="1"]
+
+visible = false
+material = SubResource( 8 )
+rotation = 3.1381
+scale = Vector2( 2, 2 )
+emitting = true
+amount = 16
+lifetime = 0.5
+one_shot = false
+preprocess = 0.0
+speed_scale = 1.0
+explosiveness = 1.0
+randomness = 0.0
+fixed_fps = 0
+fract_delta = true
+visibility_rect = Rect2( -100, -100, 200, 200 )
+local_coords = true
+draw_order = 0
+process_material = SubResource( 11 )
+texture = ExtResource( 3 )
+normal_map = null
+h_frames = 1
+v_frames = 1
+_sections_unfolded = [ "Drawing", "Material", "Process Material", "Textures", "Time", "Transform", "Visibility" ]
+
+[node name="Collision" type="CollisionPolygon2D" parent="." index="2"]
+
+position = Vector2( 0, -10 )
+build_mode = 0
+polygon = PoolVector2Array( -10, 0, 10, 0, 10, 20, -10, 20 )
+
+[node name="Visibility" type="VisibilityNotifier2D" parent="." index="3"]
+
+rect = Rect2( -10, -10, 20, 20 )
+
+[node name="Sounds" type="Node" parent="." index="4"]
+
+[node name="Launch" type="AudioStreamPlayer" parent="Sounds" index="0"]
+
+stream = ExtResource( 4 )
+volume_db = 0.0
+pitch_scale = 1.0
+autoplay = false
+mix_target = 0
+bus = "Master"
+
+[node name="Hit" type="AudioStreamPlayer" parent="Sounds" index="1"]
+
+stream = ExtResource( 5 )
+volume_db = 0.0
+pitch_scale = 1.0
+autoplay = false
+mix_target = 0
+bus = "Hit"
+
+[connection signal="viewport_exited" from="Visibility" to="." method="OnVisibilityViewportExited"]
+
+

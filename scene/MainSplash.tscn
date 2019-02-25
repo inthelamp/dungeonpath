@@ -1,0 +1,287 @@
+[gd_scene load_steps=19 format=2]
+
+[ext_resource path="res://script/MainSplash.cs" type="Script" id=1]
+[ext_resource path="res://art/splash/splash-background.png" type="Texture" id=2]
+[ext_resource path="res://art/splash/logo.png" type="Texture" id=3]
+[ext_resource path="res://art/splash/splash-title.png" type="Texture" id=4]
+[ext_resource path="res://font/texgyrechorus-mediumitalic.otf" type="DynamicFontData" id=5]
+[ext_resource path="res://art/player/idle/idle-right1.png" type="Texture" id=6]
+[ext_resource path="res://art/player/jump/jump-right1.png" type="Texture" id=7]
+[ext_resource path="res://art/player/jump/jump-right2.png" type="Texture" id=8]
+[ext_resource path="res://art/player/jump/jump-right3.png" type="Texture" id=9]
+[ext_resource path="res://art/player/jump/jump-right4.png" type="Texture" id=10]
+[ext_resource path="res://art/player/jump/jump-right5.png" type="Texture" id=11]
+[ext_resource path="res://art/splash/splash-start-normal-button.png" type="Texture" id=12]
+[ext_resource path="res://art/splash/splash-start-pressed-button.png" type="Texture" id=13]
+[ext_resource path="res://art/splash/splash-start-hover-button.png" type="Texture" id=14]
+[ext_resource path="res://audio/door_close.wav" type="AudioStream" id=15]
+
+
+[sub_resource type="DynamicFont" id=1]
+
+size = 15
+use_mipmaps = false
+use_filter = false
+font_data = ExtResource( 5 )
+_sections_unfolded = [ "Extra Spacing", "Font", "Settings" ]
+
+[sub_resource type="SpriteFrames" id=2]
+
+animations = [ {
+"frames": [ ExtResource( 6 ) ],
+"loop": true,
+"name": "idle-right",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ) ],
+"loop": true,
+"name": "jump-right",
+"speed": 5.0
+} ]
+_sections_unfolded = [ "Resource" ]
+
+[sub_resource type="Animation" id=3]
+
+length = 1.5
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("StartButton:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("TitleTiltSound:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("SplashAnimation:playback_speed")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.02, 4.0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Player:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0.2, 0.4, 0.6, 0.8, 1, 1.2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4, 0 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Player:animation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.2, 1.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ "idle-right", "jump-right", "idle-right" ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Player:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 0.2, 0.7, 1.2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 104, 343 ), Vector2( 104, 343 ), Vector2( 200, 200 ), Vector2( 382, 275 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("FallingTitle:rect_position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 93, 18 ), Vector2( 100, 350 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("FallingTitle:rect_rotation")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, -15.0 ]
+}
+
+[node name="MainSplash" type="Node"]
+
+script = ExtResource( 1 )
+
+[node name="Background" type="TextureRect" parent="." index="0"]
+
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -480.0
+margin_top = -320.0
+margin_right = 480.0
+margin_bottom = 320.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = ExtResource( 2 )
+stretch_mode = 0
+
+[node name="Logo" type="TextureRect" parent="." index="1"]
+
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -124.0
+margin_top = -142.0
+margin_right = -41.0
+margin_bottom = -43.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = ExtResource( 3 )
+stretch_mode = 0
+
+[node name="FallingTitle" type="TextureRect" parent="." index="2"]
+
+anchor_left = 0.5
+anchor_top = 0.0
+anchor_right = 0.5
+anchor_bottom = 0.0
+margin_left = -380.0
+margin_top = 350.0
+margin_right = 395.0
+margin_bottom = 435.0
+rect_rotation = -15.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = ExtResource( 4 )
+stretch_mode = 4
+_sections_unfolded = [ "Rect" ]
+
+[node name="Copyright" type="Label" parent="." index="3"]
+
+modulate = Color( 0, 0.364706, 0.294118, 1 )
+self_modulate = Color( 0, 0.364706, 0.294118, 1 )
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -225.0
+margin_top = -27.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = SubResource( 1 )
+text = "(c) 2018 In The Lamp All Right Reserved"
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "Visibility", "custom_fonts" ]
+
+[node name="Player" type="AnimatedSprite" parent="." index="4"]
+
+position = Vector2( 382, 275 )
+frames = SubResource( 2 )
+animation = "idle-right"
+_sections_unfolded = [ "Transform", "Visibility" ]
+
+[node name="StartButton" type="TextureButton" parent="." index="5"]
+
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -98.0
+margin_top = 111.0
+margin_right = 97.0
+margin_bottom = 182.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+texture_normal = ExtResource( 12 )
+texture_pressed = ExtResource( 13 )
+texture_hover = ExtResource( 14 )
+_sections_unfolded = [ "Rect", "Textures", "Visibility" ]
+
+[node name="TitleTiltSound" type="AudioStreamPlayer" parent="." index="6"]
+
+stream = ExtResource( 15 )
+volume_db = 0.0
+pitch_scale = 2.0
+autoplay = false
+mix_target = 1
+bus = "Master"
+
+[node name="SplashAnimation" type="AnimationPlayer" parent="." index="7"]
+
+root_node = NodePath("..")
+autoplay = "TitleAnim"
+playback_process_mode = 1
+playback_default_blend_time = 0.0
+playback_speed = 4.0
+anims/TitleAnim = SubResource( 3 )
+blend_times = [  ]
+_sections_unfolded = [ "Playback Options" ]
+
+[connection signal="pressed" from="StartButton" to="." method="OnStartButtonPressed"]
+
+
