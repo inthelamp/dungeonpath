@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{97E4C41E-C7FB-48E3-869E-3BB7FAF84042}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <OutputPath>mono/temp/bin/$(Configuration)</OutputPath>
+    <OutputPath>.mono/temp/bin/$(Configuration)</OutputPath>
     <RootNamespace>DungeonPath</RootNamespace>
     <AssemblyName>DungeonPath</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <BaseIntermediateOutputPath>mono/temp/obj</BaseIntermediateOutputPath>
+    <BaseIntermediateOutputPath>.mono/temp/obj</BaseIntermediateOutputPath>
     <IntermediateOutputPath>$(BaseIntermediateOutputPath)/$(Configuration)</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -39,11 +39,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="GodotSharp">
-      <HintPath>$(ProjectDir)/mono/assemblies/GodotSharp.dll</HintPath>
+      <HintPath>$(ProjectDir)/.mono/assemblies/GodotSharp.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="GodotSharpEditor" Condition=" '$(Configuration)' == 'Tools' ">
-      <HintPath>$(ProjectDir)/mono/assemblies/GodotSharpEditor.dll</HintPath>
+      <HintPath>$(ProjectDir)/.mono/assemblies/GodotSharpEditor.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
