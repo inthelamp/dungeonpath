@@ -1,0 +1,12 @@
+/Users/steven/Workspace/DungeonPath/.mono/temp/bin/Debug/DungeonPath.dll
+/Users/steven/Workspace/DungeonPath/.mono/temp/bin/Debug/DungeonPath.pdb
+/Users/steven/Workspace/DungeonPath/.mono/temp/obj/Debug/DungeonPath.csprojAssemblyReference.cache
+/Users/steven/Workspace/DungeonPath/.mono/temp/obj/Debug/DungeonPath.csproj.CoreCompileInputs.cache
+/Users/steven/Workspace/DungeonPath/.mono/temp/obj/Debug/DungeonPath.dll
+/Users/steven/Workspace/DungeonPath/.mono/temp/obj/Debug/DungeonPath.pdb
+/home/hksmf/Workplace/DungeonPath/.mono/temp/bin/Debug/DungeonPath.dll
+/home/hksmf/Workplace/DungeonPath/.mono/temp/bin/Debug/DungeonPath.pdb
+/home/hksmf/Workplace/DungeonPath/.mono/temp/obj/Debug/DungeonPath.csprojResolveAssemblyReference.cache
+/home/hksmf/Workplace/DungeonPath/.mono/temp/obj/Debug/DungeonPath.csproj.CoreCompileInputs.cache
+/home/hksmf/Workplace/DungeonPath/.mono/temp/obj/Debug/DungeonPath.dll
+/home/hksmf/Workplace/DungeonPath/.mono/temp/obj/Debug/DungeonPath.pdb
