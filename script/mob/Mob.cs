@@ -1,3 +1,31 @@
+/*************************************************************************/
+/*  Mob.cs                                                               */
+/*************************************************************************/
+/*                       This file is part of:                           */
+/*                           DungeonPath                                 */
+/*             https://github.com/dwkim263/DungeonPath/wiki              */
+/*************************************************************************/
+/* Copyright (c) 2018-2019 Dong Won Kim.                                 */
+/*                                                                       */
+/* Permission is hereby granted, free of charge, to any person obtaining */
+/* a copy of this software and associated documentation files (the       */
+/* "Software"), to deal in the Software without restriction, including   */
+/* without limitation the rights to use, copy, modify, merge, publish,   */
+/* distribute, sublicense, and/or sell copies of the Software, and to    */
+/* permit persons to whom the Software is furnished to do so, subject to */
+/* the following conditions:                                             */
+/*                                                                       */
+/* The above copyright notice and this permission notice shall be        */
+/* included in all copies or substantial portions of the Software.       */
+/*                                                                       */
+/* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,       */
+/* EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF    */
+/* MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.*/
+/* IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY  */
+/* CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,  */
+/* TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE     */
+/* SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                */
+/*************************************************************************/
 using Godot;
 using System;
 
@@ -17,14 +45,14 @@ public class Mob : Living
 		hp.SetValue(CurrentHp);
 		var mp = (MagicPoint)GetNode("MagicPoint");
 		mp.SetMax(MaxMp);
-		mp.SetValue(CurrentMp);			
+		mp.SetValue(CurrentMp);
 	}
 
 	public override void SetMobLockedOn(Player player)
 	{
 		TargetPlayer = player;
 		SetVisibleOfStatusBars(true);
-		IsLockedOn = true;	
+		IsLockedOn = true;
 	}
 
 	public override void SetMobReleased()
@@ -34,7 +62,7 @@ public class Mob : Living
 			TargetPlayer = null;
 		}
 
-		IsLockedOn = false;			
+		IsLockedOn = false;
 		SetVisibleOfStatusBars(false);
 	}
 
@@ -49,8 +77,8 @@ public class Mob : Living
 	public override void Die()
 	{
 		QueueFree();
-	}	
-	
+	}
+
 	//Calculate the max health points for level
 	//MaxHp = BASE_HP + (MAXIMUM_POSSIBLE_HP - BASE_HP) * Level /
 	//MAXIMUM_LEVEL
@@ -71,7 +99,7 @@ public class Mob : Living
 		Constants.MP_FORMULAR_LINEAR_A);
 	}
 
-	//It's about how much damage this mob can give player by the attack and 
+	//It's about how much damage this mob can give player by the attack and
 	//the damage decrease the player's HP in the end.
 	public override int GetAttackPoints()
 	{
@@ -93,7 +121,7 @@ public class Mob : Living
 	public override void GetAttacked(int damagePoints)
 	{
 		//Update current HP
-		CurrentHp -= damagePoints;		
+		CurrentHp -= damagePoints;
 
 		var hp = (HealthPoint)GetNode("HealthPoint");
 		hp.SetValue(Convert.ToSingle(CurrentHp));
@@ -105,17 +133,17 @@ public class Mob : Living
 		{
 			EmitSignal("MobDie", this);
 		}
-	}	
+	}
 
 	//Hit player
 	protected void Hit(Player player)
 	{
-		if (!IsInAttack) //Mob's attack has just occured.  
+		if (!IsInAttack) //Mob's attack has just occured.
 		{
 			//Play attack sound
 			var attackSound = (AudioStreamPlayer)GetNode("Sounds/Hit");
-			attackSound.Play();		
-			
+			attackSound.Play();
+
 			IsInAttack = true;
 			var combatDelayTimer = (Timer)GetNode("CombatDelay");
 			combatDelayTimer.Start();
@@ -127,25 +155,25 @@ public class Mob : Living
 				//So the attack point is doubled.
 				player.GetAttacked(GetAttackPoints() * 2);
 				return;
-			} 
+			}
 			else
 			{
 				player.GetAttacked(GetAttackPoints());
 				return;
 			}
-		} 
+		}
 	}
 
 	protected void ShowDamagePoints(int damagePoints)
 	{
-		//load damage points label	
+		//load damage points label
 		var damagePointsDisplayScene = (PackedScene)GD.Load(Constants.DAMAGE_POINTS_DISPLAY_FILENAME);
-		if (damagePointsDisplayScene == null) 
+		if (damagePointsDisplayScene == null)
 		{
 			return;  //Error handling
 		}
 		var damagePointsDisplay = (ShortMessage)damagePointsDisplayScene.Instance();
-		
+
 		//update the label
 		damagePointsDisplay.SetText("-" + damagePoints.ToString());
 		AddChild(damagePointsDisplay);
@@ -163,12 +191,12 @@ public class Mob : Living
 	//After this delay mob can attack.
 	protected void OnCombatDelayTimeout()
 	{
-		IsInAttack = false; //This gives Mob a turn to attack player. 
-	}	
+		IsInAttack = false; //This gives Mob a turn to attack player.
+	}
 
 	protected void OnDamagePointsDisplayTimeout()
 	{
 		var damagePointsDisplay = (Label)GetNode("DamagePoints");
-		damagePointsDisplay.Visible = false;		
+		damagePointsDisplay.Visible = false;
 	}
 }

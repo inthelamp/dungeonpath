@@ -1,3 +1,31 @@
+/*************************************************************************/
+/*  Player.cs                                                            */
+/*************************************************************************/
+/*                       This file is part of:                           */
+/*                           DungeonPath                                 */
+/*             https://github.com/dwkim263/DungeonPath/wiki              */
+/*************************************************************************/
+/* Copyright (c) 2018-2019 Dong Won Kim.                                 */
+/*                                                                       */
+/* Permission is hereby granted, free of charge, to any person obtaining */
+/* a copy of this software and associated documentation files (the       */
+/* "Software"), to deal in the Software without restriction, including   */
+/* without limitation the rights to use, copy, modify, merge, publish,   */
+/* distribute, sublicense, and/or sell copies of the Software, and to    */
+/* permit persons to whom the Software is furnished to do so, subject to */
+/* the following conditions:                                             */
+/*                                                                       */
+/* The above copyright notice and this permission notice shall be        */
+/* included in all copies or substantial portions of the Software.       */
+/*                                                                       */
+/* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,       */
+/* EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF    */
+/* MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.*/
+/* IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY  */
+/* CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,  */
+/* TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE     */
+/* SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                */
+/*************************************************************************/
 using Godot;
 using System;
 
@@ -8,7 +36,7 @@ public class Player : Playable, IPersist
 
 	private const float GRAVITY = 500.0f; //pixels/second/second
 	private const int WALK_FORCE = 500;  //500 800
-	private const int ATTACK_FORCE = 1000;  //1000	
+	private const int ATTACK_FORCE = 1000;  //1000
 	private const int WALK_MIN_SPEED = 10; //10
 	private const int WALK_MAX_SPEED = 200; //200
 	private const int STOP_FORCE = 1300; //1300
@@ -28,17 +56,17 @@ public class Player : Playable, IPersist
 	private Vector2 _velocity = new Vector2();
 
 	public override void _Ready()
-	{	
+	{
 		_muzzle = (Position2D)GetNode("Muzzle");
-		_anim = (AnimationPlayer)GetNode("Animation"); 
+		_anim = (AnimationPlayer)GetNode("Animation");
 		_animatedSprite = (AnimatedSprite)GetNode("AnimatedSprite");
 		_attackEffect = (TextureRect)GetNode("AttackEffect");
-		_wand = (Weapon)GetNode("Weapon/Wand");		
-		_isFacingRight = true;		
+		_wand = (Weapon)GetNode("Weapon/Wand");
+		_isFacingRight = true;
 
 		//Disable these collisions
 		_circleFormCollision = (CollisionShape2D)GetNode("CircleFormCollision");
-		_circleFormCollision.Disabled = true;	
+		_circleFormCollision.Disabled = true;
 	}
 
 	public void Enter(Vector2 pos)
@@ -98,12 +126,12 @@ public class Player : Playable, IPersist
 		ShowDamagePoints(damagePoints);
 
 		//Update current HP
-		CurrentHp -= damagePoints;		
+		CurrentHp -= damagePoints;
 
 		//update HUD
 		var hud = GetParent().GetNode("HUD");
 		var hp = (HealthPoint)hud.GetNode("Status/HealthPoint");
-		hp.SetValue(Convert.ToSingle(CurrentHp));	
+		hp.SetValue(Convert.ToSingle(CurrentHp));
 
 		if (CurrentHp <= 0)
 		{
@@ -114,14 +142,14 @@ public class Player : Playable, IPersist
 	//Display damage points given by attack from mob
 	private void ShowDamagePoints(int damagePoints)
 	{
-		//load damage-point label	
+		//load damage-point label
 		var damagePointsDisplayScene = (PackedScene)GD.Load(Constants.DAMAGE_POINTS_DISPLAY_FILENAME);
-		if (damagePointsDisplayScene == null) 
+		if (damagePointsDisplayScene == null)
 		{
 			return;  //Error handling
 		}
 		var damagePointsDisplay = (ShortMessage)damagePointsDisplayScene.Instance();
-		
+
 		//update label
 		damagePointsDisplay.SetText("-" + damagePoints.ToString());
 		AddChild(damagePointsDisplay);
@@ -131,14 +159,14 @@ public class Player : Playable, IPersist
 	//Display experience points gained from mob
 	private void ShowExperiencePoints(int exp)
 	{
-		//load experience-point label	
+		//load experience-point label
 		var expDisplayScene = (PackedScene)GD.Load(Constants.EXP_POINTS_DISPLAY_FILENAME);
-		if (expDisplayScene == null) 
+		if (expDisplayScene == null)
 		{
 			return;  //Error handling
 		}
 		var expDisplay = (ShortMessage)expDisplayScene.Instance();
-		
+
 		//update the label
 		expDisplay.SetText("+" + exp.ToString());
 		AddChild(expDisplay);
@@ -148,14 +176,14 @@ public class Player : Playable, IPersist
 	//Display short message
 	private void ShowShortMessage(string message)
 	{
-		//load experience-point label	
+		//load experience-point label
 		var shortMessageScene = (PackedScene)GD.Load(Constants.SHORT_MESSAGE_DISPLAY_FILENAME);
-		if (shortMessageScene == null) 
+		if (shortMessageScene == null)
 		{
 			return;  //Error handling
 		}
 		var shortMessage = (ShortMessage)shortMessageScene.Instance();
-		
+
 		//update the label
 		shortMessage.SetText(message);
 		AddChild(shortMessage);
@@ -164,14 +192,14 @@ public class Player : Playable, IPersist
 
 	private void ShowShortMessage(string message, Vector2 pos)
 	{
-		//load experience-point label	
+		//load experience-point label
 		var shortMessageScene = (PackedScene)GD.Load(Constants.SHORT_MESSAGE_DISPLAY_FILENAME);
-		if (shortMessageScene == null) 
+		if (shortMessageScene == null)
 		{
 			return;  //Error handling
 		}
 		var shortMessage = (ShortMessage)shortMessageScene.Instance();
-		
+
 		//update the label
 		shortMessage.SetText(message);
 		AddChild(shortMessage);
@@ -191,7 +219,7 @@ public class Player : Playable, IPersist
 		{
 			var hud = GetParent().GetNode("HUD");
 			var expNode = (ExperiencePoint)hud.GetNode("Status/ExperiencePoint");
-			expNode.SetValue(CurrentExp);			
+			expNode.SetValue(CurrentExp);
 		}
 	}
 
@@ -206,7 +234,7 @@ public class Player : Playable, IPersist
 		CurrentHp = MaxHp;
 		CurrentMp = MaxMp;
 		CurrentExp = restExp;
-		
+
 		var hud = (HUD)GetParent().GetNode("HUD");
 		hud.Initialize(this);
 	}
@@ -219,21 +247,21 @@ public class Player : Playable, IPersist
 	//Release the target locked on
 	public override void ReleaseTarget()
 	{
-		if (TargetMob.IsLockedOn)	
+		if (TargetMob.IsLockedOn)
 		{
 			TargetMob.SetMobReleased();
-		}	
-		TargetMob = null;		
+		}
+		TargetMob = null;
 	}
 
 	//Lock on the target
 	public override void LockOnTarget(Mob mob)
 	{
 		TargetMob = mob;
-		if (!mob.IsLockedOn)	
+		if (!mob.IsLockedOn)
 		{
 			mob.SetMobLockedOn(this);
-		}	
+		}
 	}
 
 	private void GetInput(float delta)
@@ -245,36 +273,36 @@ public class Player : Playable, IPersist
 
 		//Changing form to Circle being ready to fight.
 		bool isInputFormToCircle = Input.IsActionJustPressed("circle_form");
-		bool isInputAttackLeft = Input.IsActionJustPressed("left_attack");	
-		bool isInputAttackRight = Input.IsActionJustPressed("right_attack");	
+		bool isInputAttackLeft = Input.IsActionJustPressed("left_attack");
+		bool isInputAttackRight = Input.IsActionJustPressed("right_attack");
 
 		bool isStop = true;
 		var force = new Vector2(0, GRAVITY);
 
-		if (isInputWalkLeft) 
+		if (isInputWalkLeft)
 		{
 			if (_velocity.x <= WALK_MIN_SPEED && _velocity.x > -WALK_MAX_SPEED)
 			{
 				force.x -= WALK_FORCE;
 				isStop = false;
 			}
-		} 
-		else if (isInputWalkRight) 
+		}
+		else if (isInputWalkRight)
 		{
 			if (_velocity.x >= -WALK_MIN_SPEED && _velocity.x < WALK_MAX_SPEED)
 			{
 				force.x += WALK_FORCE;
 				isStop = false;
 			}
-		} 
+		}
 		else if (isInputFormToCircle) //Changing form to Circle being ready to fight
-		{	
+		{
 			if (!IsCircleForm)
 			{
 				IsReadyToFight = true;
 				IsCircleForm = true;
 
-				//Enable this collision	
+				//Enable this collision
 				_circleFormCollision.Show();
 				_circleFormCollision.Disabled = false;
 			}
@@ -290,47 +318,47 @@ public class Player : Playable, IPersist
 			}
 			else //toggle the key
 			{
-				ResetCombatFlags();					
+				ResetCombatFlags();
 			}
-		} 
+		}
 		else if ((isInputAttackLeft || isInputAttackRight) && !IsInAttack) //Just started the battle
 		{
 			IsReadyToFight = true;
 			IsInAttack = true;
 
-			if (isInputAttackLeft) 
+			if (isInputAttackLeft)
 			{
 				if (_velocity.x <= WALK_MIN_SPEED && _velocity.x > -WALK_MAX_SPEED)
 				{
 					force.x -= ATTACK_FORCE;
 					isStop = false;
 				}
-			} 
-			else if (isInputAttackRight) 
+			}
+			else if (isInputAttackRight)
 			{
 				if (_velocity.x >= -WALK_MIN_SPEED && _velocity.x < WALK_MAX_SPEED)
 				{
 					force.x += ATTACK_FORCE;
 					isStop = false;
 				}
-			} 				
-		} 
+			}
+		}
 
-		if (isStop) 
+		if (isStop)
 		{
 			var vSign = Math.Sign(_velocity.x);
 			var vLength = Math.Abs(_velocity.x);
 
 			vLength -= STOP_FORCE * delta;
-			if (vLength < 0) 
+			if (vLength < 0)
 			{
 				vLength = 0;
 			}
 			_velocity.x = vLength * vSign;
 		}
 
-		//Player can jump only from the floor. 
-		if (isInputJump && IsOnFloor()) 
+		//Player can jump only from the floor.
+		if (isInputJump && IsOnFloor())
 		{
 			_isInputJumping = true;
 			_onAirTime = JUMP_MAX_AIRBORNE_TIME;
@@ -355,11 +383,11 @@ public class Player : Playable, IPersist
 			if (_isInputJumping) //Jumping
 			{
 				_velocity.y = Jump(delta, _velocity.y);
-			} 
+			}
 			else if (_velocity.Length() > 0 && IsOnFloor()) //Walking
 			{
-				Walk(_velocity.x);	
-			} 
+				Walk(_velocity.x);
+			}
 			else  //Staying at the same spot
 			{
 				Idle();
@@ -378,18 +406,18 @@ public class Player : Playable, IPersist
 		IsCircleForm = false;
 
 		//Disable these collisions
-		_circleFormCollision.Hide();		
-		_circleFormCollision.Disabled = true;	
+		_circleFormCollision.Hide();
+		_circleFormCollision.Disabled = true;
 	}
 
 	private void OnHudSpotTarget()
 	{
 		//Release the object first if player has already one,
-		//and then consider the spot the mouse has just clicked at. 
+		//and then consider the spot the mouse has just clicked at.
 		if (TargetMob != null)
 		{
-			ReleaseTarget();	
-		}	
+			ReleaseTarget();
+		}
 
 		var targetPosition = GetGlobalMousePosition();
 		var spaceState = GetWorld2d().DirectSpaceState;
@@ -397,15 +425,15 @@ public class Player : Playable, IPersist
 		if (resultArray != null && resultArray.Count > 0)
 		{
 			var result = (Dictionary)resultArray[0];
-			if (result != null && result.ContainsKey("collider"))		
-			{	
+			if (result != null && result.ContainsKey("collider"))
+			{
 				if (result["collider"] is Mob)
 				{
 					var mob = (Mob)result["collider"];
-					LockOnTarget(mob);	
-				}						
+					LockOnTarget(mob);
+				}
 			}
-		}		
+		}
 	}
 
 	private void Attack(Vector2 velocity)
@@ -413,32 +441,32 @@ public class Player : Playable, IPersist
 		if (IsCircleForm)
 		{
 			if (velocity.x < 0)
-			{   
+			{
 				//Attack effect at the left side of the screen
-				var pos = _attackEffect.GetPosition();					
+				var pos = _attackEffect.GetPosition();
 				_attackEffect.SetPosition(new Vector2(Math.Abs(pos.x) * -1, pos.y));
 				_attackEffect.SetScale(new Vector2(-1, 1));
 
 				_anim.Play("attackLeft");
 			} else {
 				//Attack effect at the right side of the screen
-				var pos = _attackEffect.GetPosition();					
+				var pos = _attackEffect.GetPosition();
 				_attackEffect.SetPosition(new Vector2(Math.Abs(pos.x), pos.y));
 				_attackEffect.SetScale(new Vector2(1, 1));
 
-				_anim.Play("attackRight");					
-			}				
+				_anim.Play("attackRight");
+			}
 
-			KinematicCollision2D collision = MoveAndCollide(velocity);	
+			KinematicCollision2D collision = MoveAndCollide(velocity);
 			if (collision != null && collision.Collider is Mob)
 			{
 				Hit((Mob)collision.Collider);
-			}					
-		} 
-		else 
-		{	
+			}
+		}
+		else
+		{
 			if (TargetMob != null && TargetMob.IsLockedOn)
-			{	
+			{
 				var posX = velocity.x;
 				if (posX == 0)
 				{
@@ -456,7 +484,7 @@ public class Player : Playable, IPersist
 				Shoot(TargetMob.Position);
 			}
 		}
-		IsInAttack = false; //Because the above block should process only one time per an attack 
+		IsInAttack = false; //Because the above block should process only one time per an attack
 	}
 
 	private void Idle()
@@ -500,7 +528,7 @@ public class Player : Playable, IPersist
 			velocityY = -JUMP_SPEED;
 			_onAirTime -= delta;
 		}
-		if (IsOnFloor()) 
+		if (IsOnFloor())
 		{
 			_isInputJumping = false;
 		}
@@ -527,7 +555,7 @@ public class Player : Playable, IPersist
 		}
 
 		if (velocityX < 0)
-		{   
+		{
 			var pos = _muzzle.GetPosition();
 			_muzzle.SetPosition(new Vector2(Math.Abs(pos.x) * -1, pos.y));
 
@@ -553,13 +581,13 @@ public class Player : Playable, IPersist
 
 		if (TargetMob != null && TargetMob != mob)
 		{
-			ReleaseTarget();	
+			ReleaseTarget();
 		}
-			
+
 		if (!mob.IsLockedOn)
 		{
 			LockOnTarget(mob);
-		}		
+		}
 
 		mob.GetAttacked(GetAttackPoints());
 	}
@@ -579,7 +607,7 @@ public class Player : Playable, IPersist
 			return;
 		}
 
-		//Create a fireball			
+		//Create a fireball
 		_wand.PlayerPath = GetPath();
 
 		var attackAsset = (AttackAsset)_wand.AttackAssets["FireBall"];
@@ -587,20 +615,20 @@ public class Player : Playable, IPersist
 		{
 			//Load attack
 			var attackScene = (PackedScene)GD.Load(attackAsset.FileName);
-			if (attackScene == null) 
+			if (attackScene == null)
 			{
 				return; //Error handling
 			}
 
-			var attack = (LongRangeAttack)attackScene.Instance(); 			  //Instance attack	
+			var attack = (LongRangeAttack)attackScene.Instance(); 			  //Instance attack
 			attack.WeaponPath = _wand.GetPath();
-			attack.Speed = attackAsset.Speed;              					  //Set speed	
-			var rotation = (targetPosition - _muzzle.GlobalPosition).Angle(); //Aim at target			
+			attack.Speed = attackAsset.Speed;              					  //Set speed
+			var rotation = (targetPosition - _muzzle.GlobalPosition).Angle(); //Aim at target
 			attack.Start(_muzzle.GlobalPosition, rotation); 				  //Fire
 			GetParent().AddChild(attack);
 
 			EmitSignal("ShootFireBall");
-			
+
 			attackAsset.IsEnabled = false;
 		}
 	}
@@ -629,7 +657,7 @@ public class Player : Playable, IPersist
 		IsCircleForm = false;
 		IsReadyToFight = true;
 		IsInAttack = true;
-	}	
+	}
 
 	//Properties to save
 	public Dictionary<object, object> Save()
@@ -637,7 +665,7 @@ public class Player : Playable, IPersist
 		var path = GetParent().GetPath().ToString();
 		return new Dictionary<object, object>()
 		{
-			{ "Stage", Stage },			
+			{ "Stage", Stage },
 			{ "Name", Name },
 			{ "Filename", GetFilename() },
 			{ "Parent", path },

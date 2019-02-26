@@ -1,3 +1,31 @@
+/*************************************************************************/
+/*  Constants.cs                                                         */
+/*************************************************************************/
+/*                       This file is part of:                           */
+/*                           DungeonPath                                 */
+/*             https://github.com/dwkim263/DungeonPath/wiki              */
+/*************************************************************************/
+/* Copyright (c) 2018-2019 Dong Won Kim.                                 */
+/*                                                                       */
+/* Permission is hereby granted, free of charge, to any person obtaining */
+/* a copy of this software and associated documentation files (the       */
+/* "Software"), to deal in the Software without restriction, including   */
+/* without limitation the rights to use, copy, modify, merge, publish,   */
+/* distribute, sublicense, and/or sell copies of the Software, and to    */
+/* permit persons to whom the Software is furnished to do so, subject to */
+/* the following conditions:                                             */
+/*                                                                       */
+/* The above copyright notice and this permission notice shall be        */
+/* included in all copies or substantial portions of the Software.       */
+/*                                                                       */
+/* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,       */
+/* EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF    */
+/* MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.*/
+/* IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY  */
+/* CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,  */
+/* TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE     */
+/* SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                */
+/*************************************************************************/
 using System;
 
 static class Constants
@@ -6,9 +34,9 @@ static class Constants
 	//The value should be between 0 and 0.9.
 	//0 is 90 degree facing straight upward and 0.99 is close to 0 degree facing straight forward.
 	public const float MINIMUM_FACE_TARGET_ANGLE = 0.5f;
-	
+
 	//Mob dies
-	//For a flying object, the speed when it dies, falling down from the sky  
+	//For a flying object, the speed when it dies, falling down from the sky
 	public const int FALLING_DEAD_SPEED = 200;
 
 	//Status bars
@@ -50,10 +78,10 @@ static class Constants
 	//For Damage Points Display Label
 	public const string DAMAGE_POINTS_DISPLAY_FILENAME = "res://scene/hud/DamagePointsDisplay.tscn";
 	//For Experience Points Display Label
-	public const string EXP_POINTS_DISPLAY_FILENAME = "res://scene/hud/ExperiencePointsDisplay.tscn";	
+	public const string EXP_POINTS_DISPLAY_FILENAME = "res://scene/hud/ExperiencePointsDisplay.tscn";
 	//For Short Message Display Label
-	public const string SHORT_MESSAGE_DISPLAY_FILENAME = "res://scene/hud/ShortMessageDisplay.tscn";		
-	
+	public const string SHORT_MESSAGE_DISPLAY_FILENAME = "res://scene/hud/ShortMessageDisplay.tscn";
+
 	//C# doesn't support GDScript's randi().
 	public static float RandRand(float min, float max)
 	{

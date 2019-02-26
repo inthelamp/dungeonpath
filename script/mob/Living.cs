@@ -1,11 +1,39 @@
+/*************************************************************************/
+/*  Living.cs                                                            */
+/*************************************************************************/
+/*                       This file is part of:                           */
+/*                           DungeonPath                                 */
+/*             https://github.com/dwkim263/DungeonPath/wiki              */
+/*************************************************************************/
+/* Copyright (c) 2018-2019 Dong Won Kim.                                 */
+/*                                                                       */
+/* Permission is hereby granted, free of charge, to any person obtaining */
+/* a copy of this software and associated documentation files (the       */
+/* "Software"), to deal in the Software without restriction, including   */
+/* without limitation the rights to use, copy, modify, merge, publish,   */
+/* distribute, sublicense, and/or sell copies of the Software, and to    */
+/* permit persons to whom the Software is furnished to do so, subject to */
+/* the following conditions:                                             */
+/*                                                                       */
+/* The above copyright notice and this permission notice shall be        */
+/* included in all copies or substantial portions of the Software.       */
+/*                                                                       */
+/* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,       */
+/* EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF    */
+/* MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.*/
+/* IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY  */
+/* CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,  */
+/* TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE     */
+/* SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                */
+/*************************************************************************/
 using Godot;
 using System;
 
 public abstract class Living : RigidBody2D
 {
 	[Export]
-    public int Level; // How fast the attack will move (pixels/sec).
-	
+  public int Level; // How fast the attack will move (pixels/sec).
+
 	public Sprite MobSprite { get; set; } //Mob Sprite
 	public AnimationPlayer AnimatPlay { get; set; } //AnimationPlayer
 	public string Animation { get; set; } //Animation like "idle", "walk", "hit"
@@ -38,7 +66,7 @@ public abstract class Living : RigidBody2D
 	//Calculate the max magic point for the level
 	public abstract int GetMaxMpForLevel(int level);
 
-	//It's about how much damage this mob can give player by the attack and 
+	//It's about how much damage this mob can give player by the attack and
 	//the damage decrease the player's HP in the end.
 	public abstract int GetAttackPoints();
 
@@ -48,8 +76,8 @@ public abstract class Living : RigidBody2D
 	//This mob becomes a target of player.
 	public abstract void SetMobLockedOn(Player player);
 
-	//This mob is released from lock-on state. 
-	public abstract void SetMobReleased();	
+	//This mob is released from lock-on state.
+	public abstract void SetMobReleased();
 
 	//Give player some experience points when this mob is removed.
 	public abstract float GetExp();

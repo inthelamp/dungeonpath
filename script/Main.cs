@@ -1,3 +1,31 @@
+/*************************************************************************/
+/*  Main.cs                                                              */
+/*************************************************************************/
+/*                       This file is part of:                           */
+/*                           DungeonPath                                 */
+/*             https://github.com/dwkim263/DungeonPath/wiki              */
+/*************************************************************************/
+/* Copyright (c) 2018-2019 Dong Won Kim.                                 */
+/*                                                                       */
+/* Permission is hereby granted, free of charge, to any person obtaining */
+/* a copy of this software and associated documentation files (the       */
+/* "Software"), to deal in the Software without restriction, including   */
+/* without limitation the rights to use, copy, modify, merge, publish,   */
+/* distribute, sublicense, and/or sell copies of the Software, and to    */
+/* permit persons to whom the Software is furnished to do so, subject to */
+/* the following conditions:                                             */
+/*                                                                       */
+/* The above copyright notice and this permission notice shall be        */
+/* included in all copies or substantial portions of the Software.       */
+/*                                                                       */
+/* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,       */
+/* EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF    */
+/* MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.*/
+/* IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY  */
+/* CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,  */
+/* TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE     */
+/* SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                */
+/*************************************************************************/
 using Godot;
 using System;
 using System.Collections;
@@ -39,21 +67,21 @@ public class Main : Node
 	private const string GAMEWORLD_SCENE = "res://scene/GameWorld.tscn";
 	private const string PLAYER_SCENE = "res://scene/player/Player.tscn";
 	private const string STAGE_CONFIG = "res://stage/stagesSerialized.json";
-	private const string ARROW_CURSOR_PATH = "res://art/hud/arrow-cursor.png";	
+	private const string ARROW_CURSOR_PATH = "res://art/hud/arrow-cursor.png";
 
 	private const int FIRST_STAGE = 1;
 
 	public override void _Ready()
 	{
 		//Load the custom images for the mouse cursor
-		var arrowCursor = ResourceLoader.Load(ARROW_CURSOR_PATH);		
+		var arrowCursor = ResourceLoader.Load(ARROW_CURSOR_PATH);
 
 		Input.SetMouseMode(Input.MouseMode.Confined);
 		Input.SetCustomMouseCursor(arrowCursor);
 
 		//Make a signal connection
 		var splash = (MainSplash)GetNode("MainSplash");
-		splash.Connect("StartGame", this, "WelcomeToTheGameWorld");		
+		splash.Connect("StartGame", this, "WelcomeToTheGameWorld");
 	}
 
 	private void LoadGame(GameWorld gameWorld)
@@ -215,20 +243,20 @@ public class Main : Node
 				{
 					var mobPathScene = (PackedScene)GD.Load(enemy.mobPath);
 					if (mobPathScene == null) return; 				//Error handling
-					var mobPath = mobPathScene.Instance(); 			//Instance ModPath 
+					var mobPath = mobPathScene.Instance(); 			//Instance ModPath
 					gameWorld.AddChild(mobPath);
 
 					for (int i = 0; i < enemy.instances; ++i)
 					{
 						var enemyNode = (FlyingMob)enemyScene.Instance(); 	//Instance a mob
-						var spawnLocation = (PathFollow2D)mobPath.GetNode("MobSpawnLocation"+" "+ i.ToString());					
+						var spawnLocation = (PathFollow2D)mobPath.GetNode("MobSpawnLocation"+" "+ i.ToString());
 						enemyNode.SpawnLocation = spawnLocation;
 						enemyNode.Level= enemy.level;
 						enemyNode.MinSpeed= enemy.minSpeed;
 						enemyNode.MaxSpeed= enemy.maxSpeed;
 						enemyNode.MovingTypes = enemy.movingTypes;
 						enemiesNode.AddChild(enemyNode);
-						enemyNode.Connect("MobDie", gameWorld, "OnMobDie");				
+						enemyNode.Connect("MobDie", gameWorld, "OnMobDie");
 					}
 				}
 				else
@@ -238,9 +266,9 @@ public class Main : Node
 					enemyNode.MinSpeed= enemy.minSpeed;
 					enemyNode.MaxSpeed= enemy.maxSpeed;
 					enemyNode.SetPosition(new Vector2(enemy.posX, enemy.posY));
-					enemyNode.MovingTypes = enemy.movingTypes;					
+					enemyNode.MovingTypes = enemy.movingTypes;
 					enemiesNode.AddChild(enemyNode);
-					enemyNode.Connect("MobDie", gameWorld, "OnMobDie");					
+					enemyNode.Connect("MobDie", gameWorld, "OnMobDie");
 				}
 			}); //ForEach loop: taking care of each enemy
 
@@ -273,7 +301,7 @@ public class Main : Node
 	{
 		//Create GameWorld
 		var gameWorldScene = (PackedScene)GD.Load(GAMEWORLD_SCENE);
-		if (gameWorldScene == null) 
+		if (gameWorldScene == null)
 		{
 			return; //Error handling
 		}
