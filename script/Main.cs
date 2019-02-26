@@ -45,11 +45,15 @@ public class Main : Node
 
 	public override void _Ready()
 	{
-		// Load the custom images for the mouse cursor
+		//Load the custom images for the mouse cursor
 		var arrowCursor = ResourceLoader.Load(ARROW_CURSOR_PATH);		
 
-	//	Input.SetMouseMode(Input.MouseMode.Confined);
+		Input.SetMouseMode(Input.MouseMode.Confined);
 		Input.SetCustomMouseCursor(arrowCursor);
+
+		//Make a signal connection
+		var splash = (MainSplash)GetNode("MainSplash");
+		splash.Connect("StartGame", this, "WelcomeToTheGameWorld");		
 	}
 
 	private void LoadGame(GameWorld gameWorld)
@@ -101,6 +105,7 @@ public class Main : Node
 			var posX = Convert.ToSingle(currentLine["PosX"]);
 			var posY = Convert.ToSingle(currentLine["PosY"]);
 			newObject.Position = new Vector2(posX, posY);
+
 			if (currentLine["Level"] != null)
 			{
 				newObject.Level = Convert.ToInt32(currentLine["Level"]);
@@ -141,7 +146,6 @@ public class Main : Node
 				newObject.IsReadyToFight = (bool)currentLine["IsReadyToFight"];
 			}
 		}
-
 		saveGame.Close();
 	}
 
