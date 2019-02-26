@@ -36,12 +36,23 @@ public class MainSplash : Node
 
 	public override void _Ready()
 	{
-
+		var anim = (AnimationPlayer)GetNode("SplashAnimation");
+		anim.Stop();
 	}
 
 	private void OnStartButtonPressed()
 	{
 		EmitSignal("StartGame", this);
 	}
-
+	
+	//Start SplashAnimation after a delay that 
+	//makes time to record a screencast 
+	private void OnDelayTimeout()
+	{
+		var anim = (AnimationPlayer)GetNode("SplashAnimation");
+		anim.Play();
+	}	
 }
+
+
+
