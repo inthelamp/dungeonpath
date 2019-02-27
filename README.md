@@ -13,3 +13,6 @@ Development Environment
 	Mono JIT compiler version 5.12.0.301
 	Godot game engine v3.06
 
+[![](https://github.com/inthelamp/dungeonpath/blob/master/screenshot.png)](https://www.youtube.com/watch?v=uri3mZ_ihxI)
+
+Click the image to watch its YouTube video.
