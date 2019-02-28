@@ -96,9 +96,7 @@ public class Main : Node
 		//Load the file line by line and process that dictionary to restore the object it represents
 		saveGame.Open("user://savegame.save", (int)File.ModeFlags.Read);
 
-		//We need to revert the game state so we're not cloning objects during loading.
-		//This will vary wildly depending on the needs of a project, so take care with this step.
-		//For our example, we will accomplish this by deleting savable objects.
+		//Retrieve nodes specified with "Persist" and implementing methods of the interface IPersist
 		var saveNodes = GetTree().GetNodesInGroup("Persist");
 		foreach (Node saveNode in saveNodes)	saveNode.QueueFree();
 
