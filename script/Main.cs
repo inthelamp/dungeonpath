@@ -3,7 +3,7 @@
 /*************************************************************************/
 /*                       This file is part of:                           */
 /*                           DungeonPath                                 */
-/*             https://github.com/dwkim263/DungeonPath/wiki              */
+/*             https://github.com/inthelamp/dungeonpath                  */
 /*************************************************************************/
 /* Copyright (c) 2018-2019 Dong Won Kim.                                 */
 /*                                                                       */
@@ -76,7 +76,7 @@ public class Main : Node
 		//Load the custom images for the mouse cursor
 		var arrowCursor = ResourceLoader.Load(ARROW_CURSOR_PATH);
 
-		Input.SetMouseMode(Input.MouseMode.Confined);
+		//Input.SetMouseMode(Input.MouseMode.Confined);
 		Input.SetCustomMouseCursor(arrowCursor);
 
 		//Make a signal connection
@@ -321,3 +321,6 @@ public class Main : Node
 		GetTree().Quit();
 	}
 }
+
+
+

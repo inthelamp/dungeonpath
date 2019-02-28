@@ -3,7 +3,7 @@
 /*************************************************************************/
 /*                       This file is part of:                           */
 /*                           DungeonPath                                 */
-/*             https://github.com/dwkim263/DungeonPath/wiki              */
+/*             https://github.com/inthelamp/dungeonpath                  */
 /*************************************************************************/
 /* Copyright (c) 2018-2019 Dong Won Kim.                                 */
 /*                                                                       */
