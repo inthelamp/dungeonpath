@@ -16,3 +16,22 @@ Development Environment
 [![](https://github.com/inthelamp/dungeonpath/blob/master/screenshot.png)](https://www.youtube.com/watch?v=uri3mZ_ihxI)
 
 Click the image to watch its YouTube video.
+
+For Windows, in DungeonPath.csproj, replace the following lines
+```
+    <Reference Include="System" />
+    <Reference Include="Newtonsoft.Json" />
+  </ItemGroup>
+```
+with
+```
+    <Reference Include="System" />
+    <Reference Include="Newtonsoft.Json" >
+       <HintPath>$(ProjectDir)/.mono/assemblies/Newtonsoft.Json.dll</HintPath>
+       <Private>False</Private>
+    </Reference>   
+  </ItemGroup>
+```
+.<br />
+
+Then, copy "Newtonsoft.Json.dll" into the directory indicated with "\<HintPath\>" above.
