@@ -61,7 +61,6 @@
     <Compile Include="script\hud\HealthPoint.cs" />
     <Compile Include="script\hud\MagicPoint.cs" />
     <Compile Include="script\hud\ShortMessage.cs" />
-    <Compile Include="script\Intro.cs" />
     <Compile Include="script\mob\Living.cs" />
     <Compile Include="script\mob\Mob.cs" />
     <Compile Include="script\mob\MovingMob.cs" />
