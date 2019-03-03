@@ -6,7 +6,7 @@
        "startPosX" : 100,
        "startPosY" : 25,
        "mapName" : "Ice World",
-       "mapScene" : "res://scene/stage/stage1/IceWorldTileMap.tscn",
+       "mapScene" : "res://scene/stage/stage1/IceWorld.tscn",
        "backgroundImg" :  "res://art/stage/stage1/ice-world-bg.png",
        "enemy" :
            [
@@ -41,16 +41,90 @@
                "movingTypes" : ["idle","walk"]
              },
              {
-              "name" : "Rolling Bubble",
-              "level" : 1,
-              "scene" : "res://scene/mob/RollingBubble.tscn",
-              "posX" : 1500,
-              "posY" : 600,
-              "minSpeed" : 10,
-              "maxSpeed" : 50,
-              "movingTypes" : ["idle","walk"]
-            }
+                "name" : "Rolling Bubble",
+                "level" : 1,
+                "scene" : "res://scene/mob/RollingBubble.tscn",
+                "posX" : 1500,
+                "posY" : 600,
+                "minSpeed" : 10,
+                "maxSpeed" : 50,
+                "movingTypes" : ["idle","walk"]
+              },
+              {
+                 "name" : "Rolling Bubble",
+                 "level" : 1,
+                 "scene" : "res://scene/mob/RollingBubble.tscn",
+                 "posX" : 450,
+                 "posY" : 700,
+                 "minSpeed" : 10,
+                 "maxSpeed" : 50,
+                 "movingTypes" : ["idle","walk"]
+               }
            ]
-     }
- }
+      }
+    },
+    {
+      "stage" :
+      {
+        "stageNumber" : 2,
+        "startPosX" : 100,
+        "startPosY" : 25,
+        "mapName" : "Ice World",
+        "mapScene" : "res://scene/stage/stage2/GreenWorld.tscn",
+        "backgroundImg" :  "res://art/stage/stage2/green-world-bg.png",
+        "enemy" :
+            [
+              {
+                "name" : "Flying Bubble",
+                "level" : 1,
+                "scene" : "res://scene/mob/FlyingBubble.tscn",
+                "mobPath" : "res://scene/stage/stage2/MobPath.tscn",
+                "instances" : 3,
+                "minSpeed" : 50,
+                "maxSpeed" : 100,
+                "movingTypes" : ["idle","fly"]
+              },
+              {
+                "name" : "Rolling Bubble",
+                "level" : 1,
+                "scene" : "res://scene/mob/RollingBubble.tscn",
+                "posX" : 812,
+                "posY" : 417,
+                "minSpeed" : 50,
+                "maxSpeed" : 100,
+                "movingTypes" : ["idle","walk"]
+              },
+              {
+                "name" : "Rolling Bubble",
+                "level" : 1,
+                "scene" : "res://scene/mob/RollingBubble.tscn",
+                "posX" : 1190,
+                "posY" : 370,
+                "minSpeed" : 10,
+                "maxSpeed" : 50,
+                "movingTypes" : ["idle","walk"]
+              },
+              {
+                "name" : "Rolling Bubble",
+                "level" : 1,
+                "scene" : "res://scene/mob/RollingBubble.tscn",
+                "posX" : 1500,
+                "posY" : 600,
+                "minSpeed" : 10,
+                "maxSpeed" : 50,
+                "movingTypes" : ["idle","walk"]
+              },
+              {
+                "name" : "Rolling Bubble",
+                "level" : 1,
+                "scene" : "res://scene/mob/RollingBubble.tscn",
+                "posX" : 450,
+                "posY" : 600,
+                "minSpeed" : 10,
+                "maxSpeed" : 50,
+                "movingTypes" : ["idle","walk"]
+              }
+            ]
+      }
+  }
 ]

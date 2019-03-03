@@ -31,30 +31,24 @@ using System;
 
 public class EndSplash : Node
 {
-	[Signal]
-	public delegate void StartGame();
-
-    public override void _Ready()
-    {
-
-    }
-
 	private void OnPlayButtonPressed()
 	{
 		var parent = GetParent();
-		if (parent != null)
+		if (parent == null)
 		{
-			this.Connect("StartGame", parent, "WelcomeToTheGameWorld");
-		} else {
-			GD.Print("No Parent");
+			GD.Print("No Parent");			
+			return; //Error handling for no parent
 		}
-
+		
 		GetTree().Paused = false;
-		EmitSignal("StartGame", this);
+
+		//Move to a splash scene to rebuild this game world 
+		var global = (Global)GetNode("/root/Global");
+		global.GoToScene(this, "res://scene/StageSplash.tscn");  
 	}
 
 	private void OnEndButtonPressed()
 	{
-	    GetTree().Quit();
+		GetTree().Quit();
 	}
 }

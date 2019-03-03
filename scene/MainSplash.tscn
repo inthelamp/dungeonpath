@@ -283,7 +283,7 @@ _sections_unfolded = [ "Playback Options" ]
 [node name="DelayTimer" type="Timer" parent="." index="8"]
 
 process_mode = 1
-wait_time = 4.0
+wait_time = 1.0
 one_shot = true
 autostart = true
 

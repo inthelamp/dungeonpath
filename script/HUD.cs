@@ -47,21 +47,21 @@ public class HUD : CanvasLayer
 	public void Initialize(Player player)
 	{
 		var hp = (HealthPoint)GetNode("Status/HealthPoint");
-		hp.SetMax(player.MaxHp);
-		hp.SetValue(player.CurrentHp);
+		hp.SetMax(player.MaxHP);
+		hp.SetValue(player.CurrentHP);
 		var mp = (MagicPoint)GetNode("Status/MagicPoint");
-		mp.SetMax(player.MaxMp);
-		mp.SetValue(player.CurrentMp);
+		mp.SetMax(player.MaxMP);
+		mp.SetValue(player.CurrentMP);
 		var exp = (ExperiencePoint)GetNode("Status/ExperiencePoint");
-		exp.SetMax(player.MaxExp);
-		exp.SetValue(player.CurrentExp);
+		exp.SetMax(player.MaxEXP);
+		exp.SetValue(player.CurrentEXP);
 
 		//If it has no experience points, i.e. 0, the value is the same as its old value, and
 		//doesn't call OnValueChanged(), leaving Experience Points bar uninitialized.
 		//So call OnValueChanged() intentionally here.
-		if (player.CurrentExp == 0)
+		if (player.CurrentEXP == 0)
 		{
-			exp.OnValueChanged(player.CurrentExp);
+			exp.OnValueChanged(player.CurrentEXP);
 		}
 
 		var level = (Label)GetNode("Status/Level");
@@ -86,9 +86,21 @@ public class HUD : CanvasLayer
 
 		ShowMessage("Game Over");
 		await ToSignal(messageTimer, "Timeout");
-		messageLabel.Text = "Dodge the\nCreeps!";
+		messageLabel.Text = "Dungeon Path";
 		messageLabel.Show();
 		startButton.Show();
+	}
+
+	async public void ShowLevelUp()
+	{
+		var startButton = (Button)GetNode("StartButton");
+		var messageTimer = (Timer)GetNode("MessageTimer");
+		var messageLabel = (Label)GetNode("MessageLabel");
+
+		ShowMessage("Level UP");
+		await ToSignal(messageTimer, "Timeout");
+		messageLabel.Text = "Dungeon Path";
+		messageLabel.Show();
 	}
 
 	public void OnMessageTimerTimeout()
@@ -108,6 +120,7 @@ public class HUD : CanvasLayer
 
 	private void OnQuitButtonPressed()
 	{
+		//Save game at this point
 		var main = (Main)GetNode("/root/Main");
 		if (main != null)
 		{

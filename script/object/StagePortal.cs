@@ -1,5 +1,5 @@
 /*************************************************************************/
-/*  MagicPoint.cs                                                        */
+/*  StagePortal.cs                                                       */
 /*************************************************************************/
 /*                       This file is part of:                           */
 /*                           DungeonPath                                 */
@@ -29,16 +29,7 @@
 using Godot;
 using System;
 
-public class MagicPoint : TextureProgress
+public class StagePortal : Portal
 {
-	public void SetFigureText(string figure)
-	{
-		var label = (Label)GetNode("Figure");
-		label.SetText(figure);
-	}
-
-	public void OnValueChanged(float value)
-	{
-		SetFigureText(((int)value).ToString()+" / "+GetMax().ToString());
-	}
+	
 }

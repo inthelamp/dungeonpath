@@ -69,9 +69,9 @@ public class Intro : Node
 
 	private void LoadLevelOne()
 	{
-		PackedScene gameWorldScene = (PackedScene)GD.Load("res://Scene/GameWorld.tscn");
-		Node gameWorld = gameWorldScene.Instance();
-		GetParent().AddChild(gameWorld);
+		PackedScene worldScene = (PackedScene)GD.Load("res://Scene/World.tscn");
+		Node world = worldScene.Instance();
+		GetParent().AddChild(world);
 
 		GetParent().RemoveChild(this);
 		QueueFree();

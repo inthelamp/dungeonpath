@@ -36,11 +36,6 @@ public class ShortMessage : Label
 
 	private float _timer;
 
-	public override void _Ready()
-	{
-
-	}
-
 	public void Start()
 	{
 		SetPosition(new Vector2(

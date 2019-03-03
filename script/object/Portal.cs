@@ -1,5 +1,5 @@
 /*************************************************************************/
-/*  MagicPoint.cs                                                        */
+/*  Portal.cs                                                            */
 /*************************************************************************/
 /*                       This file is part of:                           */
 /*                           DungeonPath                                 */
@@ -29,16 +29,22 @@
 using Godot;
 using System;
 
-public class MagicPoint : TextureProgress
+public class Portal : Sprite
 {
-	public void SetFigureText(string figure)
-	{
-		var label = (Label)GetNode("Figure");
-		label.SetText(figure);
-	}
+	[Signal] 
+	public delegate void Entered();
 
-	public void OnValueChanged(float value)
-	{
-		SetFigureText(((int)value).ToString()+" / "+GetMax().ToString());
-	}
+    private void OnAreaBodyEntered(Godot.Object body)
+    {
+        if (body is Player)
+        {
+            var player = (Player)body;
+            if (!player.IsEntering)
+            {
+                player.IsEntering = true;
+                
+                EmitSignal("Entered", (Player)body);
+            }
+        }
+    }	
 }

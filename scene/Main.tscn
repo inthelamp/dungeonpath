@@ -13,6 +13,4 @@ _sections_unfolded = [ "Pause" ]
 
 _sections_unfolded = [ "Pause" ]
 
-[connection signal="StartGame" from="MainSplash" to="." method="WelcomeToTheGameWorld"]
-
 

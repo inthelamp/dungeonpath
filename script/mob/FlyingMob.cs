@@ -53,7 +53,7 @@ public class FlyingMob : Mob
 		if (IsDead)
 		{
 			newAnim = "dead";
-			var posY = Position.y + Constants.FALLING_DEAD_SPEED*delta;
+			var posY = Position.y + Constants.FallingDeadSpeed*delta;
 			if (posY > GetViewport().GetSize().y) //If it is greater than height, then free it.
 			{
 				QueueFree();

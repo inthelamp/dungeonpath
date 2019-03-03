@@ -34,18 +34,18 @@ public class LongRangeWeapon : Weapon
 	//Set MaximumAp
     public override void SetMaximumAp(int level)
     {
-		double results = (Constants.BASE_HP +
-		(Constants.MAXIMUM_POSSIBLE_HP - Constants.BASE_HP) *
-		level / Constants.MAXIMUM_LEVEL) / 10;
+		double results = (Constants.BaseHP +
+		(Constants.MaximumPossibleHP - Constants.BaseHP) *
+		level / Constants.MaximumLevel) / 10;
 		MaximumAp = (int)Math.Floor(results);
     }
 
     //Set MinimumAp
     public override void SetMinimumAp(int level)
     {
-		double results = (Constants.BASE_HP +
-		(Constants.MAXIMUM_POSSIBLE_HP - Constants.BASE_HP) *
-		level / Constants.MAXIMUM_LEVEL) / 15;
+		double results = (Constants.BaseHP +
+		(Constants.MaximumPossibleHP - Constants.BaseHP) *
+		level / Constants.MaximumLevel) / 15;
         MinimumAp = (int)Math.Floor(results);
     }
 

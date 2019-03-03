@@ -32,17 +32,17 @@ using System;
 public abstract class Living : RigidBody2D
 {
 	[Export]
-  public int Level; // How fast the attack will move (pixels/sec).
+  	public int Level; // How fast the attack will move (pixels/sec).
 
 	public Sprite MobSprite { get; set; } //Mob Sprite
 	public AnimationPlayer AnimatPlay { get; set; } //AnimationPlayer
 	public string Animation { get; set; } //Animation like "idle", "walk", "hit"
 	public PathFollow2D SpawnLocation { get; set; }
 
-	public int MaxHp { get; set; } //Maximum Health Point
-	public int MaxMp { get; set; } //Maximum Magic Point
-	public float CurrentHp { get; set; } //Current Health Point
-	public float CurrentMp { get; set; } //Current Magic Point
+	public int MaxHP { get; set; } //Maximum Health Point
+	public int MaxMP { get; set; } //Maximum Magic Point
+	public float CurrentHP { get; set; } //Current Health Point
+	public float CurrentMP { get; set; } //Current Magic Point
 	public int MinSpeed { get; set; } //Minimum speed
 	public int MaxSpeed { get; set; } //Maximum speed
 
@@ -61,10 +61,10 @@ public abstract class Living : RigidBody2D
 	public abstract void Die();
 
 	//Calculate the max health point for the level
-	public abstract int GetMaxHpForLevel(int level);
+	public abstract int GetMaxHPForLevel(int level);
 
 	//Calculate the max magic point for the level
-	public abstract int GetMaxMpForLevel(int level);
+	public abstract int GetMaxMPForLevel(int level);
 
 	//It's about how much damage this mob can give player by the attack and
 	//the damage decrease the player's HP in the end.
@@ -80,5 +80,5 @@ public abstract class Living : RigidBody2D
 	public abstract void SetMobReleased();
 
 	//Give player some experience points when this mob is removed.
-	public abstract float GetExp();
+	public abstract float GetEXP();
 }

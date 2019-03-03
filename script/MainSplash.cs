@@ -31,9 +31,6 @@ using System;
 
 public class MainSplash : Node
 {
-	[Signal]
-	public delegate void StartGame();
-
 	public override void _Ready()
 	{
 		var anim = (AnimationPlayer)GetNode("SplashAnimation");
@@ -42,7 +39,8 @@ public class MainSplash : Node
 
 	private void OnStartButtonPressed()
 	{
-		EmitSignal("StartGame", this);
+		var global = (Global)GetNode("/root/Global");
+		global.GoToScene(this, "res://scene/StageSplash.tscn");
 	}
 	
 	//Start SplashAnimation after a delay that 

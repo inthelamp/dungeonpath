@@ -36,16 +36,16 @@ public class Mob : Living
 	//Start moving
 	public override void Start()
 	{
-		MaxHp = this.GetMaxHpForLevel(Level);
-		MaxMp = this.GetMaxMpForLevel(Level);
-		CurrentHp = MaxHp;
-		CurrentMp = MaxMp;
+		MaxHP = this.GetMaxHPForLevel(Level);
+		MaxMP = this.GetMaxMPForLevel(Level);
+		CurrentHP = MaxHP;
+		CurrentMP = MaxMP;
 		var hp = (HealthPoint)GetNode("HealthPoint");
-		hp.SetMax(MaxHp);
-		hp.SetValue(CurrentHp);
+		hp.SetMax(MaxHP);
+		hp.SetValue(CurrentHP);
 		var mp = (MagicPoint)GetNode("MagicPoint");
-		mp.SetMax(MaxMp);
-		mp.SetValue(CurrentMp);
+		mp.SetMax(MaxMP);
+		mp.SetValue(CurrentMP);
 	}
 
 	public override void SetMobLockedOn(Player player)
@@ -80,56 +80,56 @@ public class Mob : Living
 	}
 
 	//Calculate the max health points for level
-	//MaxHp = BASE_HP + (MAXIMUM_POSSIBLE_HP - BASE_HP) * Level /
-	//MAXIMUM_LEVEL
-	public override int GetMaxHpForLevel(int level)
+	//MaxHP = BaseHP + (MaximumPossibleHP - BaseHP) * Level /
+	//MaximumLevel
+	public override int GetMaxHPForLevel(int level)
 	{
-		double results = Constants.BASE_HP +
-		(Constants.MAXIMUM_POSSIBLE_HP - Constants.BASE_HP) *
-		level / Constants.MAXIMUM_LEVEL;
+		double results = Constants.BaseHP +
+		(Constants.MaximumPossibleHP - Constants.BaseHP) *
+		level / Constants.MaximumLevel;
 		return (int) Math.Floor(results);
 	}
 
 	//Calculate the max magic points for level
-	//MaxMp = MaxHp * A
+	//MaxMP = MaxHP * A
 	//A is between 0.01 and 0.99 and its default value is 0.7.
-	public override int GetMaxMpForLevel(int level)
+	public override int GetMaxMPForLevel(int level)
 	{
-		return (int)Math.Floor(GetMaxHpForLevel(level) *
-		Constants.MP_FORMULAR_LINEAR_A);
+		return (int)Math.Floor(GetMaxHPForLevel(level) *
+		Constants.MPFormularLinearA);
 	}
 
 	//It's about how much damage this mob can give player by the attack and
 	//the damage decrease the player's HP in the end.
 	public override int GetAttackPoints()
 	{
-		return (int)(MaxHp/10);
+		return (int)(MaxHP/10);
 	}
 
     //Give player some experience points when this mob is removed.
     //requiredExp is the required experience points for player to level up
     // and the experience points the mob gives player is to divide requiredExp by
     // the number of mobs for player to hunt for its level-up.
-	public override float GetExp()
+	public override float GetEXP()
 	{
 		var level = Level + 1;
-		double requiredExp = (Constants.EXP_FORMULAR_LINEAR_A * level)
-		+ Math.Pow(level, Constants.EXP_FORMULAR_EXPONENT_B);
-		return Convert.ToSingle(requiredExp / Constants.NUMBER_OF_MOBS_FOR_LEVEL_UP);
+		double requiredExp = (Constants.EXPFormularLinearA * level)
+		+ Math.Pow(level, Constants.EXPFormularExponentB);
+		return Convert.ToSingle(requiredExp / Constants.NumberOfMobsForLevelUp);
 	}
 
 	public override void GetAttacked(int damagePoints)
 	{
 		//Update current HP
-		CurrentHp -= damagePoints;
+		CurrentHP -= damagePoints;
 
 		var hp = (HealthPoint)GetNode("HealthPoint");
-		hp.SetValue(Convert.ToSingle(CurrentHp));
+		hp.SetValue(Convert.ToSingle(CurrentHP));
 
 		//Display the damage points which reduce HP.
 		ShowDamagePoints(damagePoints);
 
-		if (CurrentHp <= 0)
+		if (CurrentHP <= 0)
 		{
 			EmitSignal("MobDie", this);
 		}
@@ -167,7 +167,7 @@ public class Mob : Living
 	protected void ShowDamagePoints(int damagePoints)
 	{
 		//load damage points label
-		var damagePointsDisplayScene = (PackedScene)GD.Load(Constants.DAMAGE_POINTS_DISPLAY_FILENAME);
+		var damagePointsDisplayScene = (PackedScene)GD.Load(Constants.DamagePointsDisplayFilename);
 		if (damagePointsDisplayScene == null)
 		{
 			return;  //Error handling

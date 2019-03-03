@@ -34,14 +34,14 @@ public class Player : Playable, IPersist
   	[Signal]
 	public delegate void ShootFireBall();
 
-	private const float GRAVITY = 500.0f; //pixels/second/second
-	private const int WALK_FORCE = 500;  //500 800
-	private const int ATTACK_FORCE = 1000;  //1000
-	private const int WALK_MIN_SPEED = 10; //10
+	private const float Gravity = 500.0f; //pixels/second/second
+	private const int WalkForce = 500;  //500 800
+	private const int AttackForce = 1000;  //1000
+	private const int WalkMinSpeed = 10; //10
 	private const int WALK_MAX_SPEED = 200; //200
-	private const int STOP_FORCE = 1300; //1300
-	private const int JUMP_SPEED = 200; //400
-	private const float JUMP_MAX_AIRBORNE_TIME = 0.2f;
+	private const int StopForce = 1300; //1300
+	private const int JumpSpeed = 200; //400
+	private const float JumpMaxAirborneTime = 0.2f;
 
 	private bool _isInputJumping;
 	private bool _isFacingRight;
@@ -69,11 +69,37 @@ public class Player : Playable, IPersist
 		_circleFormCollision.Disabled = true;
 	}
 
-	public void Enter(Vector2 pos)
+	public void Start()
 	{
-		Position = pos;
-		Show();
-		IsEntered = true;
+		IsEntering = false;
+
+		//Save game at this point
+		var main = (Main)GetNode("/root/Main");
+		if (main != null)
+		{
+			main.SaveGame();
+		}		
+	}
+
+	//float restExp = (CurrentEXP + gainedExp) - MaxEXP;
+	//if restExp >= 0, then level-up.
+	public override void LevelUp(float restExp)
+	{
+		++Level;
+		MaxHP = GetMaxHPForLevel(Level);
+		MaxMP = GetMaxMPForLevel(Level);
+		MaxEXP = GetRequiredEXPForLevelUp(Level);
+		CurrentHP = MaxHP;
+		CurrentMP = MaxMP;
+		CurrentEXP = restExp;
+
+		var hud = (HUD)GetParent().GetNode("HUD");
+
+		if (Level != 1)
+		{
+			hud.Initialize(this);					
+			hud.ShowLevelUp();
+		}
 	}
 
 	/*
@@ -83,41 +109,41 @@ public class Player : Playable, IPersist
 	A is between 1 and 10 and its default value is 4.
 	B is between 1.1 and 2 and its default value is 1.85.
 	*/
-	public override int GetRequiredExpForLevelUp(int level)
+	public override int GetRequiredEXPForLevelUp(int level)
 	{
 		++level;
-		double results = (Constants.EXP_FORMULAR_LINEAR_A * level)
-		+ Math.Pow(level, Constants.EXP_FORMULAR_EXPONENT_B);
+		double results = (Constants.EXPFormularLinearA * level)
+		+ Math.Pow(level, Constants.EXPFormularExponentB);
 		return (int)Math.Floor(results);
 	}
 
 	/*
 	Calculate the max health points for the level
-	MaxHp = BASE_HP + (MAXIMUM_POSSIBLE_HP - BASE_HP) * Level /
-	MAXIMUM_LEVEL
+	MaxHP = BaseHP + (MaximumPossibleHP - BaseHP) * Level /
+	MaximumLevel
 	*/
-	public override int GetMaxHpForLevel(int level)
+	public override int GetMaxHPForLevel(int level)
 	{
-		double results = Constants.BASE_HP +
-		(Constants.MAXIMUM_POSSIBLE_HP - Constants.BASE_HP) *
-		level / Constants.MAXIMUM_LEVEL;
+		double results = Constants.BaseHP +
+		(Constants.MaximumPossibleHP - Constants.BaseHP) *
+		level / Constants.MaximumLevel;
 		return (int)Math.Floor(results);
 	}
 
 	/*
 	Calculate the max magic points for the level
-	MaxMp = MaxHp * A
+	MaxMP = MaxHP * A
 	A is between 0.01 and 0.99 and its default value is 0.7.
 	*/
-	public override int GetMaxMpForLevel(int level)
+	public override int GetMaxMPForLevel(int level)
 	{
-		return (int)Math.Floor(GetMaxHpForLevel(level) *
-		Constants.MP_FORMULAR_LINEAR_A);
+		return (int)Math.Floor(GetMaxHPForLevel(level) *
+		Constants.MPFormularLinearA);
 	}
 
 	public override int GetAttackPoints()
 	{
-		return (int)(MaxHp/10);
+		return (int)(MaxHP/10);
 	}
 
 	public override void GetAttacked(int damagePoints)
@@ -126,14 +152,14 @@ public class Player : Playable, IPersist
 		ShowDamagePoints(damagePoints);
 
 		//Update current HP
-		CurrentHp -= damagePoints;
+		CurrentHP -= damagePoints;
 
 		//update HUD
 		var hud = GetParent().GetNode("HUD");
 		var hp = (HealthPoint)hud.GetNode("Status/HealthPoint");
-		hp.SetValue(Convert.ToSingle(CurrentHp));
+		hp.SetValue(Convert.ToSingle(CurrentHP));
 
-		if (CurrentHp <= 0)
+		if (CurrentHP <= 0)
 		{
 			Die();
 		}
@@ -143,7 +169,7 @@ public class Player : Playable, IPersist
 	private void ShowDamagePoints(int damagePoints)
 	{
 		//load damage-point label
-		var damagePointsDisplayScene = (PackedScene)GD.Load(Constants.DAMAGE_POINTS_DISPLAY_FILENAME);
+		var damagePointsDisplayScene = (PackedScene)GD.Load(Constants.DamagePointsDisplayFilename);
 		if (damagePointsDisplayScene == null)
 		{
 			return;  //Error handling
@@ -160,7 +186,7 @@ public class Player : Playable, IPersist
 	private void ShowExperiencePoints(int exp)
 	{
 		//load experience-point label
-		var expDisplayScene = (PackedScene)GD.Load(Constants.EXP_POINTS_DISPLAY_FILENAME);
+		var expDisplayScene = (PackedScene)GD.Load(Constants.EXPPointsDisplayFilename);
 		if (expDisplayScene == null)
 		{
 			return;  //Error handling
@@ -177,7 +203,7 @@ public class Player : Playable, IPersist
 	private void ShowShortMessage(string message)
 	{
 		//load experience-point label
-		var shortMessageScene = (PackedScene)GD.Load(Constants.SHORT_MESSAGE_DISPLAY_FILENAME);
+		var shortMessageScene = (PackedScene)GD.Load(Constants.ShortMessageDisplayFilename);
 		if (shortMessageScene == null)
 		{
 			return;  //Error handling
@@ -193,7 +219,7 @@ public class Player : Playable, IPersist
 	private void ShowShortMessage(string message, Vector2 pos)
 	{
 		//load experience-point label
-		var shortMessageScene = (PackedScene)GD.Load(Constants.SHORT_MESSAGE_DISPLAY_FILENAME);
+		var shortMessageScene = (PackedScene)GD.Load(Constants.ShortMessageDisplayFilename);
 		if (shortMessageScene == null)
 		{
 			return;  //Error handling
@@ -206,37 +232,21 @@ public class Player : Playable, IPersist
 		shortMessage.Start(pos);
 	}
 
-	public override void AddExp(float exp)
+	public override void AddEXP(float exp)
 	{
 		ShowExperiencePoints((int)exp);
-		CurrentExp += exp;
-		if (CurrentExp >= MaxExp)
+		CurrentEXP += exp;
+		if (CurrentEXP >= MaxEXP)
 		{
-			var restExp = CurrentExp - MaxExp;
+			var restExp = CurrentEXP - MaxEXP;
 			LevelUp(restExp);
 		}
 		else
 		{
 			var hud = GetParent().GetNode("HUD");
 			var expNode = (ExperiencePoint)hud.GetNode("Status/ExperiencePoint");
-			expNode.SetValue(CurrentExp);
+			expNode.SetValue(CurrentEXP);
 		}
-	}
-
-	//float restExp = (CurrentExp + gainedExp) - MaxExp;
-	//if restExp >= 0, then level-up.
-	public override void LevelUp(float restExp)
-	{
-		++Level;
-		MaxHp = GetMaxHpForLevel(Level);
-		MaxMp = GetMaxMpForLevel(Level);
-		MaxExp = GetRequiredExpForLevelUp(Level);
-		CurrentHp = MaxHp;
-		CurrentMp = MaxMp;
-		CurrentExp = restExp;
-
-		var hud = (HUD)GetParent().GetNode("HUD");
-		hud.Initialize(this);
 	}
 
 	public void SetIsJumping(bool isInputJumping)
@@ -277,21 +287,21 @@ public class Player : Playable, IPersist
 		bool isInputAttackRight = Input.IsActionJustPressed("right_attack");
 
 		bool isStop = true;
-		var force = new Vector2(0, GRAVITY);
+		var force = new Vector2(0, Gravity);
 
 		if (isInputWalkLeft)
 		{
-			if (_velocity.x <= WALK_MIN_SPEED && _velocity.x > -WALK_MAX_SPEED)
+			if (_velocity.x <= WalkMinSpeed && _velocity.x > -WALK_MAX_SPEED)
 			{
-				force.x -= WALK_FORCE;
+				force.x -= WalkForce;
 				isStop = false;
 			}
 		}
 		else if (isInputWalkRight)
 		{
-			if (_velocity.x >= -WALK_MIN_SPEED && _velocity.x < WALK_MAX_SPEED)
+			if (_velocity.x >= -WalkMinSpeed && _velocity.x < WALK_MAX_SPEED)
 			{
-				force.x += WALK_FORCE;
+				force.x += WalkForce;
 				isStop = false;
 			}
 		}
@@ -328,17 +338,17 @@ public class Player : Playable, IPersist
 
 			if (isInputAttackLeft)
 			{
-				if (_velocity.x <= WALK_MIN_SPEED && _velocity.x > -WALK_MAX_SPEED)
+				if (_velocity.x <= WalkMinSpeed && _velocity.x > -WALK_MAX_SPEED)
 				{
-					force.x -= ATTACK_FORCE;
+					force.x -= AttackForce;
 					isStop = false;
 				}
 			}
 			else if (isInputAttackRight)
 			{
-				if (_velocity.x >= -WALK_MIN_SPEED && _velocity.x < WALK_MAX_SPEED)
+				if (_velocity.x >= -WalkMinSpeed && _velocity.x < WALK_MAX_SPEED)
 				{
-					force.x += ATTACK_FORCE;
+					force.x += AttackForce;
 					isStop = false;
 				}
 			}
@@ -349,7 +359,7 @@ public class Player : Playable, IPersist
 			var vSign = Math.Sign(_velocity.x);
 			var vLength = Math.Abs(_velocity.x);
 
-			vLength -= STOP_FORCE * delta;
+			vLength -= StopForce * delta;
 			if (vLength < 0)
 			{
 				vLength = 0;
@@ -361,7 +371,7 @@ public class Player : Playable, IPersist
 		if (isInputJump && IsOnFloor())
 		{
 			_isInputJumping = true;
-			_onAirTime = JUMP_MAX_AIRBORNE_TIME;
+			_onAirTime = JumpMaxAirborneTime;
 		}
 
 		_velocity += force * delta;
@@ -525,7 +535,7 @@ public class Player : Playable, IPersist
 		}
 		if (_onAirTime > 0)
 		{
-			velocityY = -JUMP_SPEED;
+			velocityY = -JumpSpeed;
 			_onAirTime -= delta;
 		}
 		if (IsOnFloor())
@@ -601,7 +611,7 @@ public class Player : Playable, IPersist
 		var normalVectToMuzzle = (_muzzle.GlobalPosition - pos).Normalized();
 
 		//Player should face target.
-		if (normalVectToTarget.Dot(normalVectToMuzzle) <= Constants.MINIMUM_FACE_TARGET_ANGLE)
+		if (normalVectToTarget.Dot(normalVectToMuzzle) <= Constants.MinimumFaceTargetAngle)
 		{
 			ShowShortMessage("Face the target!", new Vector2(-70, 40));
 			return;
@@ -659,7 +669,7 @@ public class Player : Playable, IPersist
 		IsInAttack = true;
 	}
 
-	//Properties to save
+	//Properties to save, implementing the method of IPersist
 	public Dictionary<object, object> Save()
 	{
 		var path = GetParent().GetPath().ToString();
@@ -672,12 +682,12 @@ public class Player : Playable, IPersist
 			{ "PosX", Position.x }, //Vector2 is not supported by JSON
 			{ "PosY", Position.y },
 			{ "Level", Level },
-			{ "MaxHp", MaxHp },
-			{ "MaxMp", MaxMp },
-			{ "MaxExp", MaxExp },
-			{ "CurrentHp", CurrentHp },
-			{ "CurrentMp", CurrentMp },
-			{ "CurrentExp", CurrentExp },
+			{ "MaxHP", MaxHP },
+			{ "MaxMP", MaxMP },
+			{ "MaxEXP", MaxEXP },
+			{ "CurrentHP", CurrentHP },
+			{ "CurrentMP", CurrentMP },
+			{ "CurrentEXP", CurrentEXP },
 			{ "IsReadyToFight", IsReadyToFight }
 		};
 	}
