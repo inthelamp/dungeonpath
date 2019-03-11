@@ -1,4 +1,4 @@
-# DungeonPath
+# Dungeon Path
 Platform game developing with Godot Engine and C# 
 
 C# is one of multipurpose high level languages. Godot engine is an open source game engine for creating 2D and 3D games and developed based on object-oriented design. It provides C# API to nicely organize its user-friendly features in creating your awesome world.
