@@ -54,7 +54,9 @@ autoplay = true
 mix_target = 1
 bus = "Master"
 
-[connection signal="QuitGame" from="HUD" to="." method="OnHUDQuitGame"]
+[connection signal="GameOver" from="HUD" to="." method="GameOver"]
+
+[connection signal="QuitGame" from="HUD" to="." method="GameOver"]
 
 [connection signal="finished" from="BackgroundSound" to="." method="OnBackgroundSoundFinished"]
 

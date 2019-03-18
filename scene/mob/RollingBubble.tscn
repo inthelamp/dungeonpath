@@ -7,7 +7,6 @@
 [ext_resource path="res://art/mob/rollingbubble.png" type="Texture" id=5]
 [ext_resource path="res://audio/hit.wav" type="AudioStream" id=6]
 
-
 [sub_resource type="DynamicFont" id=1]
 
 size = 10
@@ -76,11 +75,11 @@ tracks/0/keys = {
 custom_solver_bias = 0.0
 radius = 20.6118
 
-[node name="RollingBubble" type="RigidBody2D" index="0"]
+[node name="RollingBubble" type="RigidBody2D"]
 
 pause_mode = 1
 input_pickable = false
-collision_layer = 8
+collision_layer = 4
 collision_mask = 3
 mode = 2
 mass = 1.0
@@ -98,7 +97,7 @@ linear_damp = -1.0
 angular_velocity = 0.0
 angular_damp = -1.0
 script = ExtResource( 1 )
-_sections_unfolded = [ "Pause", "Pickable" ]
+_sections_unfolded = [ "Collision", "Pause", "Pickable" ]
 Level = 1
 
 [node name="BasicInfo" type="Label" parent="." index="0"]
@@ -220,7 +219,7 @@ volume_db = 0.0
 pitch_scale = 1.0
 autoplay = false
 mix_target = 0
-bus = "Hit"
+bus = "Master"
 
 [connection signal="viewport_exited" from="Enabler" to="." method="OnEnablerViewportExited"]
 

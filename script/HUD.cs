@@ -32,6 +32,7 @@ using System;
 public class HUD : CanvasLayer
 {
 	[Signal] public delegate void QuitGame();
+	[Signal] public delegate void GameOver();	
 	[Signal] public delegate void EnableFeature();
 	[Signal] public delegate void CircleButtonPressed();
 	[Signal] public delegate void SpotTarget();
@@ -48,10 +49,14 @@ public class HUD : CanvasLayer
 	{
 		var hp = (HealthPoint)GetNode("Status/HealthPoint");
 		hp.SetMax(player.MaxHP);
+		player.CurrentHP = player.MaxHP;
 		hp.SetValue(player.CurrentHP);
+
 		var mp = (MagicPoint)GetNode("Status/MagicPoint");
 		mp.SetMax(player.MaxMP);
+		player.CurrentMP = player.MaxMP;
 		mp.SetValue(player.CurrentMP);
+
 		var exp = (ExperiencePoint)GetNode("Status/ExperiencePoint");
 		exp.SetMax(player.MaxEXP);
 		exp.SetValue(player.CurrentEXP);
@@ -78,29 +83,28 @@ public class HUD : CanvasLayer
 		messageTimer.Start();
 	}
 
-	async public void ShowGameOver()
+	public async void ShowGameOver()
 	{
-		var startButton = (Button)GetNode("StartButton");
 		var messageTimer = (Timer)GetNode("MessageTimer");
-		var messageLabel = (Label)GetNode("MessageLabel");
 
 		ShowMessage("Game Over");
-		await ToSignal(messageTimer, "Timeout");
-		messageLabel.Text = "Dungeon Path";
-		messageLabel.Show();
-		startButton.Show();
+		await ToSignal(messageTimer, "timeout");
+
+		//Save game at this point
+		SaveGame();
+
+		//Signal to World
+		EmitSignal("GameOver");		
 	}
 
-	async public void ShowLevelUp()
+	public async void ShowLevelUp()
 	{
-		var startButton = (Button)GetNode("StartButton");
 		var messageTimer = (Timer)GetNode("MessageTimer");
-		var messageLabel = (Label)GetNode("MessageLabel");
 
 		ShowMessage("Level UP");
-		await ToSignal(messageTimer, "Timeout");
-		messageLabel.Text = "Dungeon Path";
-		messageLabel.Show();
+		
+		//Take enough time to show this level up
+		await ToSignal(messageTimer, "timeout");
 	}
 
 	public void OnMessageTimerTimeout()
@@ -118,14 +122,20 @@ public class HUD : CanvasLayer
 		GetTree().Paused = false;
 	}
 
-	private void OnQuitButtonPressed()
+	//Save the game before the end of the world
+	private void SaveGame()
 	{
-		//Save game at this point
 		var main = (Main)GetNode("/root/Main");
 		if (main != null)
 		{
 			main.SaveGame();
-		}
+		}		
+	}
+
+	private void OnQuitButtonPressed()
+	{
+		//Save game at this point
+		SaveGame();
 
 		EmitSignal("QuitGame");
 	}
@@ -201,3 +211,4 @@ public class HUD : CanvasLayer
 		}
 	}
 }
+

@@ -32,36 +32,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-public class Enemy
-{
-	public string name { get; set; }
-	public int level { get; set; }
-	public string scene { get; set; }
-	public string mobPath { get; set; }
-	public int instances { get; set; }
-	public int posX { get; set; }
-	public int posY { get; set; }
-	public int minSpeed { get; set; }
-	public int maxSpeed { get; set; }
-	public String[] movingTypes { get; set; }
-}
-
-public class Stage
-{
-	public int stageNumber { get; set; }
-	public int startPosX { get; set; }
-	public int startPosY { get; set; }
-	public string mapName { get; set; }
-	public string mapScene { get; set; }
-	public string backgroundImg { get; set; }
-	public List<Enemy> enemy { get; set; }
-}
-
-public class StageObject
-{
-	public Stage stage { get; set; }
-}
-
 public class Splash : Node
 {
 	protected const string WorldScene = "res://scene/World.tscn";
@@ -177,9 +147,24 @@ public class Splash : Node
 				GetNode(currentLine["Parent"].ToString()).AddChild(newObject);
 			}
 
-			var posX = Convert.ToSingle(currentLine["PosX"]);
-			var posY = Convert.ToSingle(currentLine["PosY"]);
-			newObject.Position = new Vector2(posX, posY);
+			if (currentLine["IsDead"] != null)
+			{
+				newObject.IsDead = (bool)currentLine["IsDead"];
+			}
+
+			if (newObject.IsDead)
+			{
+				//Locate the player at the safe place.
+				var startPosition = (Position2D) GameWorld.GetNode("StartPosition");
+				newObject.SetPosition(startPosition.GetPosition());			
+				newObject.IsDead = false;					
+			}
+			else
+			{
+				var posX = Convert.ToSingle(currentLine["PosX"]);
+				var posY = Convert.ToSingle(currentLine["PosY"]);
+				newObject.SetPosition(new Vector2(posX, posY));				
+			}
 
 			if (currentLine["Level"] != null)
 			{
@@ -214,11 +199,6 @@ public class Splash : Node
 			if (currentLine["CurrentEXP"] != null)
 			{
 				newObject.CurrentEXP = Convert.ToSingle(currentLine["CurrentEXP"]);
-			}
-
-			if (currentLine["IsReadyToFight"] != null)
-			{
-				newObject.IsReadyToFight = (bool)currentLine["IsReadyToFight"];
 			}
 		}
 		saveGame.Close();
@@ -379,4 +359,35 @@ public class Splash : Node
 		}
 		aFile.Close();
 	}	
+
+	class Enemy
+	{
+		public string name { get; set; }
+		public int level { get; set; }
+		public string scene { get; set; }
+		public string mobPath { get; set; }
+		public int instances { get; set; }
+		public int posX { get; set; }
+		public int posY { get; set; }
+		public int minSpeed { get; set; }
+		public int maxSpeed { get; set; }
+		public String[] movingTypes { get; set; }
+	}
+
+	class Stage
+	{
+		public int stageNumber { get; set; }
+		public int startPosX { get; set; }
+		public int startPosY { get; set; }
+		public string mapName { get; set; }
+		public string mapScene { get; set; }
+		public string backgroundImg { get; set; }
+		public List<Enemy> enemy { get; set; }
+	}
+
+	class StageObject
+	{
+		public Stage stage { get; set; }
+	}
+
 }

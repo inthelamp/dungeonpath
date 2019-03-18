@@ -318,7 +318,7 @@ public class Player : Playable, IPersist
 			}
 			else
 			{
-				ResetCombatFlags();
+				DisableCombat();
 			}
 		}
 		else if (isInputReadyToFight)
@@ -328,7 +328,7 @@ public class Player : Playable, IPersist
 			}
 			else //toggle the key
 			{
-				ResetCombatFlags();
+				DisableCombat();
 			}
 		}
 		else if ((isInputAttackLeft || isInputAttackRight) && !IsInAttack) //Just started the battle
@@ -410,7 +410,7 @@ public class Player : Playable, IPersist
 		}
 	}
 
-	private void ResetCombatFlags()
+	private void DisableCombat()
 	{
 		IsReadyToFight = false;
 		IsCircleForm = false;
@@ -645,8 +645,30 @@ public class Player : Playable, IPersist
 
 	private void Die()
 	{
+		//Set player's status to Dead
+		IsDead = true;
+
+		//Disable collisions
+		SetCollisionsEnabled(false);
+
+		//Disable combat ability after loss of its life
+		DisableCombat();
+
 		Hide(); //Player disappears after being hit.
+
+		//Display a message the player is dead now.
+		var hud = (HUD)GetParent().GetNode("HUD");	
+		hud.ShowGameOver();
 	}
+
+	//Set collisions with enemies and objects
+	private void SetCollisionsEnabled(bool isCollisionEnabled)
+	{
+		//Collision layer and mask bits start from 0.
+		SetCollisionLayerBit(1, isCollisionEnabled);
+		SetCollisionMaskBit(2, isCollisionEnabled);
+		SetCollisionMaskBit(3, isCollisionEnabled);	
+	}	
 
 	private void OnHudEnableFeature(string featureName)
 	{
@@ -688,7 +710,7 @@ public class Player : Playable, IPersist
 			{ "CurrentHP", CurrentHP },
 			{ "CurrentMP", CurrentMP },
 			{ "CurrentEXP", CurrentEXP },
-			{ "IsReadyToFight", IsReadyToFight }
+			{ "IsDead", IsDead }
 		};
 	}
 }

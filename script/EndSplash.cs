@@ -36,7 +36,7 @@ public class EndSplash : Node
 		var parent = GetParent();
 		if (parent == null)
 		{
-			GD.Print("No Parent");			
+			GD.Print("No Parent at OnPlayButtonPressed in EndSplash");			
 			return; //Error handling for no parent
 		}
 		

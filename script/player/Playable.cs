@@ -43,6 +43,7 @@ public abstract class Playable : KinematicBody2D
 	public bool IsCircleForm { get; set; }
 	public bool IsInAttack { get; set; }
 	public bool IsEntering { get; set; }
+	public bool IsDead { get; set; }	
 
 	public Mob TargetMob { get; set; }  //The mob to attack
 

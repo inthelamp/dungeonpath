@@ -52,10 +52,6 @@ public class World : Node
     _player.Start();
   }
 
-  public void GameOver()
-  {
-    _hud.ShowGameOver();
-  }
 
   private void OnMobDie(Mob mob)
   {
@@ -73,7 +69,7 @@ public class World : Node
     mob.Die();
   }
 
-  private void OnHUDQuitGame()
+  private void GameOver()
   {
     var global = (Global)GetNode("/root/Global");
 		global.GoToScene(this, "res://scene/EndSplash.tscn");
