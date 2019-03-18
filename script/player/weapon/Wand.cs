@@ -29,7 +29,7 @@
 using Godot;
 using System;
 
-public class Wand : LongRangeWeapon
+public class Wand : LongRangeMagicWeapon
 {
     public override void _Ready()
     {
@@ -37,8 +37,8 @@ public class Wand : LongRangeWeapon
         {
             Level = 1;
         }
-        SetMaximumAp(Level);
-        SetMinimumAp(Level);
+        SetMaximumAP(Level);
+        SetMinimumAP(Level);
 
         var attackAsset = new AttackAsset();
         attackAsset.Name = "FireBall";

@@ -1,5 +1,5 @@
 /*************************************************************************/
-/*  Main.cs                                                              */
+/*  IMagicPointsRequired.cs                                              */
 /*************************************************************************/
 /*                       This file is part of:                           */
 /*                           DungeonPath                                 */
@@ -28,50 +28,20 @@
 /*************************************************************************/
 using Godot;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Newtonsoft.Json;
 
-public class Main : Node
+interface IMagicPointsRequired
 {
-	private const string ArrowCursorPath = "res://art/hud/arrow-cursor.png";
-	private const int FirstStage = 1;
+    //Maximum magic points to use this feature
+    int MaximumMP { get; set; }
+    //Minimum magic points to use this feature    
+    int MinimumMP { get; set; }
 
-	public override void _Ready()
-	{
-		//Load the custom images for the mouse cursor
-		var arrowCursor = ResourceLoader.Load(ArrowCursorPath);
+	//Set MaximumMP
+    void SetMaximumMP();
 
-		//Input.SetMouseMode(Input.MouseMode.Confined);
-		Input.SetCustomMouseCursor(arrowCursor);
-	}
+    //Set MinimumMP
+    void SetMinimumMP();
 
-	public void SaveGame()
-	{
-		var saveGame = new File();
-		saveGame.Open("user://savegame.save", (int)File.ModeFlags.Write);
-
-		var saveNodes = GetTree().GetNodesInGroup("Persist");
-		foreach (IPersist saveNode in saveNodes)
-		{
-			var nodeData = saveNode.Save();
-			saveGame.StoreLine(JsonConvert.SerializeObject(nodeData));
-		}
-		saveGame.Close();
-	}
-	
-	public void OnSplashFinishedLoading(Splash splash, World gameWorld)
-	{
-		if (!this.HasNode("World"))
-		{
-			AddChild(gameWorld);
-		}
-		gameWorld.GameStart();	
-			
-		RemoveChild(splash);
-		splash.QueueFree();		
-	}
+    //Random number between MinimumMP and MaximumMP
+	int GetMagicPoints();
 }
-
-
-

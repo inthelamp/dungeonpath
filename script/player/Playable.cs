@@ -67,6 +67,9 @@ public abstract class Playable : KinematicBody2D
 	//Get it attacked
 	public abstract void GetAttacked(int damagePoints);
 
+	//Update magic points after using it
+	public abstract void UseMagicPoints(int magicPoints);
+
 	//Release the target locked on or aimed
 	public abstract void ReleaseTarget();
 

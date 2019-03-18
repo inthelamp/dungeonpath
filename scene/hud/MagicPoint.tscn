@@ -6,10 +6,6 @@
 [ext_resource path="res://script/hud/MagicPoint.cs" type="Script" id=4]
 [ext_resource path="res://font/Xolonium-Regular.ttf" type="DynamicFontData" id=5]
 
-
-
-
-
 [sub_resource type="DynamicFont" id=1]
 
 size = 15
@@ -96,7 +92,6 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
 custom_fonts/font = SubResource( 2 )
-text = "18000/20000"
 align = 1
 valign = 2
 percent_visible = 1.0

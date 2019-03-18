@@ -51,7 +51,7 @@ public class Player : Playable, IPersist
 	private AnimatedSprite _animatedSprite;
 	private TextureRect _attackEffect;
 	private CollisionShape2D _circleFormCollision;
-	private Weapon _wand;
+	private LongRangeMagicWeapon _wand;
 
 	private Vector2 _velocity = new Vector2();
 
@@ -61,7 +61,7 @@ public class Player : Playable, IPersist
 		_anim = (AnimationPlayer)GetNode("Animation");
 		_animatedSprite = (AnimatedSprite)GetNode("AnimatedSprite");
 		_attackEffect = (TextureRect)GetNode("AttackEffect");
-		_wand = (Weapon)GetNode("Weapon/Wand");
+		_wand = (LongRangeMagicWeapon)GetNode("Weapon/Wand");
 		_isFacingRight = true;
 
 		//Disable these collisions
@@ -143,6 +143,7 @@ public class Player : Playable, IPersist
 
 	public override int GetAttackPoints()
 	{
+        //The constant number can be considerd later to adjust the game balance		
 		return (int)(MaxHP/10);
 	}
 
@@ -153,17 +154,38 @@ public class Player : Playable, IPersist
 
 		//Update current HP
 		CurrentHP -= damagePoints;
+		if (CurrentHP < 0)
+		{
+			CurrentHP = 0;
+		}			
 
 		//update HUD
 		var hud = GetParent().GetNode("HUD");
 		var hp = (HealthPoint)hud.GetNode("Status/HealthPoint");
 		hp.SetValue(Convert.ToSingle(CurrentHP));
 
-		if (CurrentHP <= 0)
+		if (CurrentHP == 0)
 		{
 			Die();
 		}
 	}
+
+	//Update magic points after using it
+	public override void UseMagicPoints(int magicPoints)
+	{
+		//Update current MP
+		CurrentMP -= magicPoints;
+		if (CurrentMP < 0)
+		{
+			CurrentMP = 0;
+		}		
+
+		//update HUD
+		var hud = GetParent().GetNode("HUD");
+		var mp = (MagicPoint)hud.GetNode("Status/MagicPoint");
+		
+		mp.SetValue(Convert.ToSingle(CurrentMP));
+	}	
 
 	//Display damage points given by attack from mob
 	private void ShowDamagePoints(int damagePoints)
@@ -617,6 +639,18 @@ public class Player : Playable, IPersist
 			return;
 		}
 
+		//Check if this feature needs magic points and 
+		//this player still has magic points.
+		if (_wand.IsInGroup("MagicPointsRequired"))
+		{
+			//Luckily, if it has 1 MP, it can still use the magic by the creator who is creating this world.			
+			if (CurrentMP == 0)
+			{
+				ShowShortMessage("No magic points left!", new Vector2(-70, 40));				
+				return;
+			}
+		}
+
 		//Create a fireball
 		_wand.PlayerPath = GetPath();
 
@@ -636,6 +670,9 @@ public class Player : Playable, IPersist
 			var rotation = (targetPosition - _muzzle.GlobalPosition).Angle(); //Aim at target
 			attack.Start(_muzzle.GlobalPosition, rotation); 				  //Fire
 			GetParent().AddChild(attack);
+
+			//The current magic point is reduced by the required magic points.
+			UseMagicPoints(_wand.GetMagicPoints());
 
 			EmitSignal("ShootFireBall");
 

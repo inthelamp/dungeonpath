@@ -1,5 +1,5 @@
 /*************************************************************************/
-/*  Main.cs                                                              */
+/*  LongRangeMagicWeapon.cs                                          */
 /*************************************************************************/
 /*                       This file is part of:                           */
 /*                           DungeonPath                                 */
@@ -28,50 +28,44 @@
 /*************************************************************************/
 using Godot;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Newtonsoft.Json;
 
-public class Main : Node
+public class LongRangeMagicWeapon : LongRangeWeapon, IMagicPointsRequired
 {
-	private const string ArrowCursorPath = "res://art/hud/arrow-cursor.png";
-	private const int FirstStage = 1;
+    //Maximum magic points required to use the magic
+    public int MaximumMP { get; set; }
+    //Minimum magic points required to use the magic    
+    public int MinimumMP { get; set; }
 
-	public override void _Ready()
-	{
-		//Load the custom images for the mouse cursor
-		var arrowCursor = ResourceLoader.Load(ArrowCursorPath);
+	//Set MaximumMP required to use the magic
+    public void SetMaximumMP()
+    {
+        //The constant number can be considerd later to adjust the game balance
+        MaximumMP = GetAttackPoints() / 2;
+    }
 
-		//Input.SetMouseMode(Input.MouseMode.Confined);
-		Input.SetCustomMouseCursor(arrowCursor);
-	}
+    //Set MinimumMP required to use the magic 
+    public void SetMinimumMP()
+    {
+        //The constant number can be considerd later to adjust the game balance        
+        MinimumMP = GetAttackPoints() / 4;
+    }
 
-	public void SaveGame()
-	{
-		var saveGame = new File();
-		saveGame.Open("user://savegame.save", (int)File.ModeFlags.Write);
-
-		var saveNodes = GetTree().GetNodesInGroup("Persist");
-		foreach (IPersist saveNode in saveNodes)
-		{
-			var nodeData = saveNode.Save();
-			saveGame.StoreLine(JsonConvert.SerializeObject(nodeData));
-		}
-		saveGame.Close();
-	}
-	
-	public void OnSplashFinishedLoading(Splash splash, World gameWorld)
-	{
-		if (!this.HasNode("World"))
-		{
-			AddChild(gameWorld);
-		}
-		gameWorld.GameStart();	
-			
-		RemoveChild(splash);
-		splash.QueueFree();		
-	}
+    //Magic points required to use the magic.
+    //Random number between MinimumMP and MaximumMP.
+    //This amount of magic points will be reduced 
+    //from the current magic points of the object to use this magic.
+    //If the object doesn't have magic points, 
+    //this magic feature can't be realized.
+	public int GetMagicPoints()
+    {
+        if (MaximumMP == 0) 
+        {
+            SetMaximumMP();
+        }
+        if (MinimumMP == 0) 
+        {
+            SetMinimumMP();
+        }        
+        return (int)Constants.RandRand(MinimumMP, MaximumMP);        
+    }
 }
-
-
-

@@ -70,8 +70,10 @@
     <Compile Include="script\player\weapon\Weapon.cs" />
     <Compile Include="script\player\weapon\Wand.cs" />
     <Compile Include="script\player\weapon\Attack.cs" />
+    <Compile Include="script\player\weapon\IMagicPointsRequired.cs" />  
     <Compile Include="script\player\weapon\LongRangeAttack.cs" />
     <Compile Include="script\player\weapon\LongRangeWeapon.cs" />
+    <Compile Include="script\player\weapon\LongRangeMagicWeapon.cs" />    
     <Compile Include="script\player\Player.cs" />
     <Compile Include="script\player\Playable.cs" />
     <Compile Include="script\IPersist.cs" />

@@ -103,6 +103,7 @@ public class Mob : Living
 	//the damage decrease the player's HP in the end.
 	public override int GetAttackPoints()
 	{
+        //The constant number can be considerd later to adjust the game balance		
 		return (int)(MaxHP/10);
 	}
 

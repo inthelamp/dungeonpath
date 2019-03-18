@@ -22,7 +22,7 @@ use_filter = false
 font_data = ExtResource( 5 )
 _sections_unfolded = [ "Font", "Settings" ]
 
-[node name="HealthPoint" type="TextureProgress"]
+[node name="HealthPoint" type="TextureProgress" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -92,7 +92,6 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
 custom_fonts/font = SubResource( 2 )
-text = "18000/20000"
 align = 1
 valign = 2
 percent_visible = 1.0

@@ -31,27 +31,37 @@ using System;
 
 public class LongRangeWeapon : Weapon
 {
-	//Set MaximumAp
-    public override void SetMaximumAp(int level)
+	//Set MaximumAP
+    public override void SetMaximumAP(int level)
     {
+        //The constant number can be considerd later to adjust the game balance        
 		double results = (Constants.BaseHP +
 		(Constants.MaximumPossibleHP - Constants.BaseHP) *
 		level / Constants.MaximumLevel) / 10;
-		MaximumAp = (int)Math.Floor(results);
+		MaximumAP = (int)Math.Floor(results);
     }
 
-    //Set MinimumAp
-    public override void SetMinimumAp(int level)
+    //Set MinimumAP
+    public override void SetMinimumAP(int level)
     {
+        //The constant number can be considerd later to adjust the game balance        
 		double results = (Constants.BaseHP +
 		(Constants.MaximumPossibleHP - Constants.BaseHP) *
 		level / Constants.MaximumLevel) / 15;
-        MinimumAp = (int)Math.Floor(results);
+        MinimumAP = (int)Math.Floor(results);
     }
 
-    //Random number between MinimumAp and MaximumAp
+    //Random number between MinimumAP and MaximumAP
 	public override int GetAttackPoints()
     {
-        return (int)Constants.RandRand(MinimumAp, MaximumAp);
+        if (MaximumAP == 0) 
+        {
+            SetMaximumAP(Level);
+        }
+        if (MinimumAP == 0) 
+        {
+            SetMinimumAP(Level);
+        }        
+        return (int)Constants.RandRand(MinimumAP, MaximumAP);
     }
 }

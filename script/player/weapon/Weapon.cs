@@ -41,17 +41,17 @@ public abstract class Weapon : Node
 {
   public string PlayerPath { get; set; } //node path of the one who possesses this weapon.
   public int Level { get; set; } //level
-  public int MaximumAp { get; set; } //Maximum attack points
-  public int MinimumAp { get; set; } //Minimum attack points
+  public int MaximumAP { get; set; } //Maximum attack points
+  public int MinimumAP { get; set; } //Minimum attack points
   public System.Collections.Generic.Dictionary<string, AttackAsset> AttackAssets { get; set; }
   = new System.Collections.Generic.Dictionary<string, AttackAsset>();
 
-  //Set MaximumAp
-  public abstract void SetMaximumAp(int level);
+  //Set MaximumAP
+  public abstract void SetMaximumAP(int level);
 
-  //Set MinimumAp
-  public abstract void SetMinimumAp(int level);
+  //Set MinimumAP
+  public abstract void SetMinimumAP(int level);
 
-  //Random number between MinimumAp and MaximumAp
+  //Random number between MinimumAP and MaximumAP
   public abstract int GetAttackPoints();
 }
