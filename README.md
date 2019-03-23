@@ -1,9 +1,9 @@
 # Dungeon Path
 Platform game developing with Godot Engine and C# 
 
-For Godot v3.1, <b>MoveAndCollide</b> doesn't return KinematicCollision2D, but <b>null</b> according to my test.
+For Godot v3.1, <b>MoveAndCollide</b> returns KinematicCollision2D with the parameter <b>infiniteInertia = false</b>.
 
-This game works only with Godot v3.0.6.
+This game works only with Godot v3.0.6 now.
 
 C# is one of multipurpose high level languages. Godot engine is an open source game engine for creating 2D and 3D games and developed based on object-oriented design. It provides C# API to nicely organize its user-friendly features in creating your awesome world.
 
