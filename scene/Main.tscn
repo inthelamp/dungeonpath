@@ -3,14 +3,9 @@
 [ext_resource path="res://script/Main.cs" type="Script" id=1]
 [ext_resource path="res://scene/MainSplash.tscn" type="PackedScene" id=2]
 
-[node name="Main" type="Node" index="0"]
-
+[node name="Main" type="Node"]
 pause_mode = 2
 script = ExtResource( 1 )
-_sections_unfolded = [ "Pause" ]
 
-[node name="MainSplash" parent="." index="0" instance=ExtResource( 2 )]
-
-_sections_unfolded = [ "Pause" ]
-
+[node name="MainSplash" parent="." instance=ExtResource( 2 )]
 

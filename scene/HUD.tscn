@@ -15,105 +15,58 @@
 [ext_resource path="res://art/hud/menu-icon-exit.png" type="Texture" id=13]
 
 [sub_resource type="DynamicFont" id=1]
-
 size = 15
-use_mipmaps = false
-use_filter = false
 font_data = ExtResource( 4 )
-_sections_unfolded = [ "Font", "Settings" ]
 
 [sub_resource type="DynamicFont" id=2]
-
 size = 64
-use_mipmaps = false
-use_filter = false
 font_data = ExtResource( 4 )
-_sections_unfolded = [ "Font" ]
 
 [sub_resource type="DynamicFont" id=3]
-
 size = 32
-use_mipmaps = false
-use_filter = false
 font_data = ExtResource( 4 )
 
 [sub_resource type="DynamicFont" id=4]
-
 size = 20
-use_mipmaps = false
-use_filter = false
 font_data = ExtResource( 4 )
-_sections_unfolded = [ "Font", "Settings" ]
 
 [sub_resource type="DynamicFont" id=5]
-
 size = 25
-use_mipmaps = false
-use_filter = false
 font_data = ExtResource( 4 )
-_sections_unfolded = [ "Extra Spacing", "Font", "Settings" ]
 
 [sub_resource type="DynamicFont" id=6]
-
 size = 15
-use_mipmaps = false
-use_filter = false
 font_data = ExtResource( 4 )
-_sections_unfolded = [ "Font", "Font/fallback", "Settings" ]
 
 [node name="HUD" type="CanvasLayer"]
-
-layer = 1
-offset = Vector2( 0, 0 )
-rotation = 0.0
-scale = Vector2( 1, 1 )
-transform = Transform2D( 1, 0, 0, 1, 0, 0 )
 script = ExtResource( 1 )
 
-[node name="Status" type="Node" parent="." index="0"]
+[node name="Status" type="Node" parent="."]
 
-[node name="HealthPoint" parent="Status" index="0" instance=ExtResource( 2 )]
-
+[node name="HealthPoint" parent="Status" instance=ExtResource( 2 )]
 margin_left = 36.0
 margin_top = 11.0
 margin_right = 186.0
 margin_bottom = 26.0
-_sections_unfolded = [ "Anchor", "Grow Direction", "Margin", "Radial Fill", "Rect", "Textures", "Visibility" ]
 
-[node name="MagicPoint" parent="Status" index="1" instance=ExtResource( 3 )]
-
+[node name="MagicPoint" parent="Status" instance=ExtResource( 3 )]
 margin_left = 36.0
 margin_top = 27.0
 margin_right = 186.0
 margin_bottom = 42.0
-_sections_unfolded = [ "Anchor", "Grow Direction", "Margin", "Radial Fill", "Rect", "Textures", "Visibility" ]
 
-[node name="Level" type="Label" parent="Status" index="2"]
-
+[node name="Level" type="Label" parent="Status"]
 anchor_left = 1.0
-anchor_top = 0.0
 anchor_right = 1.0
-anchor_bottom = 0.0
 margin_left = -200.0
 margin_top = 11.0
 margin_right = -53.0
 margin_bottom = 30.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 2
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 4
 custom_fonts/font = SubResource( 1 )
 text = "Level 1"
 valign = 1
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-_sections_unfolded = [ "Rect", "custom_fonts" ]
 
-[node name="ExperiencePoint" parent="Status" index="3" instance=ExtResource( 5 )]
-
+[node name="ExperiencePoint" parent="Status" instance=ExtResource( 5 )]
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -160.0
@@ -121,9 +74,7 @@ margin_top = 27.0
 margin_right = -10.0
 margin_bottom = 42.0
 
-[node name="CircleProgress" type="HBoxContainer" parent="." index="1"]
-
-editor/display_folded = true
+[node name="CircleProgress" type="HBoxContainer" parent="."]
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
@@ -131,23 +82,13 @@ anchor_bottom = 1.0
 margin_left = -32.0
 margin_top = -64.0
 margin_right = 32.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 1
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-alignment = 0
-_sections_unfolded = [ "Rect" ]
 
-[node name="FireBall" parent="CircleProgress" index="0" instance=ExtResource( 6 )]
-
+[node name="FireBall" parent="CircleProgress" instance=ExtResource( 6 )]
 visible = false
+step = 0.01
 FeatureName = "FireBall"
 
-[node name="CircleButton" type="HBoxContainer" parent="." index="2"]
-
-editor/display_folded = true
+[node name="CircleButton" type="HBoxContainer" parent="."]
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
@@ -155,42 +96,16 @@ anchor_bottom = 1.0
 margin_left = -32.0
 margin_top = -64.0
 margin_right = 32.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 1
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-alignment = 0
-_sections_unfolded = [ "Rect" ]
 
-[node name="FireBall" type="TextureButton" parent="CircleButton" index="0"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
+[node name="FireBall" type="TextureButton" parent="CircleButton"]
 margin_right = 64.0
 margin_bottom = 64.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-focus_mode = 2
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-toggle_mode = false
-enabled_focus_mode = 2
-shortcut = null
-group = null
 texture_normal = ExtResource( 7 )
 texture_hover = ExtResource( 8 )
 script = ExtResource( 9 )
-_sections_unfolded = [ "Rect" ]
 FeatureName = "FireBall"
 
-[node name="MessageLabel" type="Label" parent="." index="3"]
-
+[node name="MessageLabel" type="Label" parent="."]
 visible = false
 anchor_left = 0.5
 anchor_top = 0.5
@@ -200,28 +115,14 @@ margin_left = -202.0
 margin_top = -148.0
 margin_right = 198.0
 margin_bottom = 11.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 2
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 4
 custom_fonts/font = SubResource( 2 )
 align = 1
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-_sections_unfolded = [ "Margin", "custom_fonts" ]
 
-[node name="MessageTimer" type="Timer" parent="." index="4"]
-
-process_mode = 1
+[node name="MessageTimer" type="Timer" parent="."]
 wait_time = 2.0
 one_shot = true
-autostart = false
 
-[node name="BackToPlayButton" type="Button" parent="." index="5"]
-
+[node name="BackToPlayButton" type="Button" parent="."]
 visible = false
 modulate = Color( 0.221848, 0.847656, 0.71565, 1 )
 anchor_left = 0.5
@@ -232,27 +133,13 @@ margin_left = -110.0
 margin_top = -294.0
 margin_right = 110.0
 margin_bottom = -249.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-focus_mode = 2
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
 custom_fonts/font = SubResource( 3 )
 custom_colors/font_color = Color( 0.641578, 0.867188, 0.342133, 1 )
 custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
 custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
-toggle_mode = false
-enabled_focus_mode = 2
-shortcut = null
-group = null
 text = "Back to play"
-flat = false
-align = 1
 
-[node name="QuitButton" type="Button" parent="." index="6"]
-
+[node name="QuitButton" type="Button" parent="."]
 pause_mode = 2
 visible = false
 modulate = Color( 0.221848, 0.847656, 0.71565, 1 )
@@ -264,62 +151,28 @@ margin_left = -110.0
 margin_top = -223.0
 margin_right = 110.0
 margin_bottom = -178.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-focus_mode = 2
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
 custom_fonts/font = SubResource( 3 )
 custom_colors/font_color = Color( 0.641578, 0.867188, 0.342133, 1 )
 custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
 custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
-toggle_mode = false
-enabled_focus_mode = 2
-shortcut = null
-group = null
 text = "Quit"
-flat = false
-align = 1
-_sections_unfolded = [ "Pause", "Visibility" ]
 
-[node name="MenuButton" type="MenuButton" parent="." index="7"]
-
-anchor_left = 0.0
+[node name="MenuButton" type="MenuButton" parent="."]
 anchor_top = 1.0
-anchor_right = 0.0
 anchor_bottom = 1.0
 margin_top = -31.0
 margin_right = 104.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
 custom_fonts/font = SubResource( 4 )
 custom_colors/font_color = Color( 0, 0.266667, 0.333333, 1 )
 custom_colors/font_color_hover = Color( 0.136383, 0.851562, 0.633656, 1 )
-toggle_mode = false
-action_mode = 0
-enabled_focus_mode = 0
-shortcut = null
-group = null
 text = "Menu"
 icon = ExtResource( 10 )
-flat = true
-align = 1
 items = [ "Sound", ExtResource( 11 ), 0, false, false, 0, 0, null, "", false, "Key Map", ExtResource( 12 ), 0, true, false, 1, 0, null, "", false, "Separator", null, 0, false, false, 2, 0, null, "", true, "Exit", ExtResource( 13 ), 0, false, false, 3, 0, null, "", false ]
-_sections_unfolded = [ "Textures" ]
 
-[node name="Menu" type="Node" parent="." index="8"]
-
+[node name="Menu" type="Node" parent="."]
 editor/display_folded = true
 
-[node name="KeyMapping" type="WindowDialog" parent="Menu" index="0"]
-
-visible = false
+[node name="KeyMapping" type="WindowDialog" parent="Menu"]
 modulate = Color( 0.84114, 0.953125, 0.748352, 1 )
 self_modulate = Color( 0.930786, 0.976562, 0.941157, 1 )
 anchor_left = 0.5
@@ -330,34 +183,16 @@ margin_left = -133.5
 margin_top = -94.0
 margin_right = 133.5
 margin_bottom = 94.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
 custom_fonts/title_font = SubResource( 5 )
-popup_exclusive = false
 window_title = "Key Mapping"
-resizable = false
-_sections_unfolded = [ "Popup", "custom_fonts" ]
 
-[node name="Keys" type="Label" parent="Menu/KeyMapping" index="1"]
-
-anchor_left = 0.0
+[node name="Keys" type="Label" parent="Menu/KeyMapping"]
 anchor_top = 0.5
-anchor_right = 0.0
 anchor_bottom = 0.5
 margin_left = 5.0
 margin_top = -97.5
 margin_right = 146.0
 margin_bottom = 97.5
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 2
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 4
 custom_fonts/font = SubResource( 6 )
 text = "Move Left
 Move Right
@@ -368,13 +203,8 @@ Attack Left
 Attack Right
 Quit Game"
 valign = 1
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-_sections_unfolded = [ "Margin", "Rect", "custom_fonts" ]
 
-[node name="Values" type="Label" parent="Menu/KeyMapping" index="2"]
-
+[node name="Values" type="Label" parent="Menu/KeyMapping"]
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
@@ -383,12 +213,6 @@ margin_left = -100.0
 margin_top = -98.0
 margin_right = -5.0
 margin_bottom = 97.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 2
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 4
 custom_fonts/font = SubResource( 6 )
 text = "D-Pad Left
 D-Pad Right
@@ -399,19 +223,9 @@ Space Bar
 3
 ESC"
 valign = 1
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-_sections_unfolded = [ "Margin", "Rect", "custom_fonts" ]
 
 [connection signal="EndCircleProgress" from="CircleProgress/FireBall" to="." method="OnEndCircleProgress"]
-
 [connection signal="pressed" from="CircleButton/FireBall" to="." method="OnCircleButtonPressed" binds= [ "FeatureName" ]]
-
 [connection signal="timeout" from="MessageTimer" to="." method="OnMessageTimerTimeout"]
-
 [connection signal="pressed" from="BackToPlayButton" to="." method="OnBackToPlayButtonPressed"]
-
 [connection signal="pressed" from="QuitButton" to="." method="OnQuitButtonPressed"]
-
-

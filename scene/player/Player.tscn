@@ -9,25 +9,25 @@
 [ext_resource path="res://art/player/walk/walk-right4.png" type="Texture" id=7]
 [ext_resource path="res://art/player/walk/walk-right5.png" type="Texture" id=8]
 [ext_resource path="res://art/player/walk/walk-right6.png" type="Texture" id=9]
-[ext_resource path="res://art/player/walk/roll-right1.png" type="Texture" id=10]
-[ext_resource path="res://art/player/idle/idle-right-wand.png" type="Texture" id=11]
-[ext_resource path="res://art/player/jump/jump-right1.png" type="Texture" id=12]
-[ext_resource path="res://art/player/jump/jump-right2.png" type="Texture" id=13]
-[ext_resource path="res://art/player/jump/jump-right3.png" type="Texture" id=14]
-[ext_resource path="res://art/player/jump/jump-right4.png" type="Texture" id=15]
-[ext_resource path="res://art/player/jump/jump-right5.png" type="Texture" id=16]
-[ext_resource path="res://art/player/walk/walk-right-wand1.png" type="Texture" id=17]
-[ext_resource path="res://art/player/walk/walk-right-wand2.png" type="Texture" id=18]
-[ext_resource path="res://art/player/walk/walk-right-wand3.png" type="Texture" id=19]
-[ext_resource path="res://art/player/walk/walk-right-wand4.png" type="Texture" id=20]
-[ext_resource path="res://art/player/walk/walk-right-wand5.png" type="Texture" id=21]
-[ext_resource path="res://art/player/walk/walk-right-wand6.png" type="Texture" id=22]
-[ext_resource path="res://art/player/walk/roll-right2.png" type="Texture" id=23]
-[ext_resource path="res://art/player/walk/roll-right3.png" type="Texture" id=24]
-[ext_resource path="res://art/player/walk/roll-right4.png" type="Texture" id=25]
-[ext_resource path="res://art/player/walk/roll-right5.png" type="Texture" id=26]
-[ext_resource path="res://art/player/walk/roll-right6.png" type="Texture" id=27]
-[ext_resource path="res://art/player/walk/roll-right7.png" type="Texture" id=28]
+[ext_resource path="res://art/player/walk/walk-right-wand1.png" type="Texture" id=10]
+[ext_resource path="res://art/player/walk/walk-right-wand2.png" type="Texture" id=11]
+[ext_resource path="res://art/player/walk/walk-right-wand3.png" type="Texture" id=12]
+[ext_resource path="res://art/player/walk/walk-right-wand4.png" type="Texture" id=13]
+[ext_resource path="res://art/player/walk/walk-right-wand5.png" type="Texture" id=14]
+[ext_resource path="res://art/player/walk/walk-right-wand6.png" type="Texture" id=15]
+[ext_resource path="res://art/player/walk/roll-right1.png" type="Texture" id=16]
+[ext_resource path="res://art/player/walk/roll-right2.png" type="Texture" id=17]
+[ext_resource path="res://art/player/walk/roll-right3.png" type="Texture" id=18]
+[ext_resource path="res://art/player/walk/roll-right4.png" type="Texture" id=19]
+[ext_resource path="res://art/player/walk/roll-right5.png" type="Texture" id=20]
+[ext_resource path="res://art/player/walk/roll-right6.png" type="Texture" id=21]
+[ext_resource path="res://art/player/walk/roll-right7.png" type="Texture" id=22]
+[ext_resource path="res://art/player/idle/idle-right-wand.png" type="Texture" id=23]
+[ext_resource path="res://art/player/jump/jump-right1.png" type="Texture" id=24]
+[ext_resource path="res://art/player/jump/jump-right2.png" type="Texture" id=25]
+[ext_resource path="res://art/player/jump/jump-right3.png" type="Texture" id=26]
+[ext_resource path="res://art/player/jump/jump-right4.png" type="Texture" id=27]
+[ext_resource path="res://art/player/jump/jump-right5.png" type="Texture" id=28]
 [ext_resource path="res://art/player/jump/jump-right-wand1.png" type="Texture" id=29]
 [ext_resource path="res://art/player/jump/jump-right-wand2.png" type="Texture" id=30]
 [ext_resource path="res://art/player/jump/jump-right-wand3.png" type="Texture" id=31]
@@ -38,15 +38,10 @@
 [ext_resource path="res://audio/hit.wav" type="AudioStream" id=36]
 
 [sub_resource type="DynamicFont" id=1]
-
 size = 10
-use_mipmaps = false
-use_filter = false
 font_data = ExtResource( 2 )
-_sections_unfolded = [ "Font", "Settings" ]
 
 [sub_resource type="SpriteFrames" id=2]
-
 animations = [ {
 "frames": [ ExtResource( 3 ) ],
 "loop": true,
@@ -58,29 +53,29 @@ animations = [ {
 "name": "walk",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 10 ) ],
-"loop": true,
-"name": "circle",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 11 ) ],
-"loop": true,
-"name": "idle-wand",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ) ],
-"loop": true,
-"name": "jump",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 17 ), ExtResource( 18 ), ExtResource( 19 ), ExtResource( 20 ), ExtResource( 21 ), ExtResource( 22 ) ],
+"frames": [ ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ) ],
 "loop": true,
 "name": "walk-wand",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 10 ), ExtResource( 23 ), ExtResource( 24 ), ExtResource( 25 ), ExtResource( 26 ), ExtResource( 27 ), ExtResource( 28 ) ],
+"frames": [ ExtResource( 16 ), ExtResource( 17 ), ExtResource( 18 ), ExtResource( 19 ), ExtResource( 20 ), ExtResource( 21 ), ExtResource( 22 ) ],
 "loop": true,
 "name": "rolling",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 16 ) ],
+"loop": true,
+"name": "circle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 23 ) ],
+"loop": true,
+"name": "idle-wand",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 24 ), ExtResource( 25 ), ExtResource( 26 ), ExtResource( 27 ), ExtResource( 28 ) ],
+"loop": true,
+"name": "jump",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 29 ), ExtResource( 30 ), ExtResource( 31 ), ExtResource( 32 ), ExtResource( 33 ) ],
@@ -90,11 +85,8 @@ animations = [ {
 } ]
 
 [sub_resource type="Animation" id=3]
-
 resource_name = "attackLeft"
 length = 0.4
-loop = false
-step = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("AnimatedSprite:animation")
 tracks/0/interp = 1
@@ -181,10 +173,7 @@ tracks/6/keys = {
 }
 
 [sub_resource type="Animation" id=4]
-
 length = 0.4
-loop = false
-step = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("AnimatedSprite:animation")
 tracks/0/interp = 1
@@ -272,156 +261,101 @@ tracks/6/keys = {
 
 [sub_resource type="CircleShape2D" id=5]
 
-custom_solver_bias = 0.0
-radius = 10.0
-
 [node name="Player" type="KinematicBody2D" groups=[
 "Persist",
 ]]
-
-input_pickable = false
 collision_layer = 2
 collision_mask = 13
-collision/safe_margin = 0.08
 script = ExtResource( 1 )
-_sections_unfolded = [ "Collision", "Transform", "Visibility" ]
 
-[node name="BasicInfo" type="Label" parent="." index="0"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
+[node name="BasicInfo" type="Label" parent="."]
 margin_left = -47.0
 margin_top = -62.0
 margin_right = 45.0
 margin_bottom = -48.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 2
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 4
 custom_fonts/font = SubResource( 1 )
 text = "Marlow"
 align = 1
 valign = 1
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-_sections_unfolded = [ "custom_fonts" ]
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="." index="1"]
-
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 rotation = -6.28319
 frames = SubResource( 2 )
 animation = "idle"
-_sections_unfolded = [ "Transform", "Visibility" ]
 
-[node name="AttackEffect" type="TextureRect" parent="." index="2"]
-
+[node name="AttackEffect" type="TextureRect" parent="."]
 visible = false
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
 margin_left = 50.0
 margin_top = -68.0
 margin_right = 90.0
 margin_bottom = -19.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 1
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
 texture = ExtResource( 34 )
-stretch_mode = 0
-_sections_unfolded = [ "Rect", "Transform", "Visibility" ]
 
-[node name="Animation" type="AnimationPlayer" parent="." index="3"]
-
-root_node = NodePath("..")
-autoplay = ""
-playback_process_mode = 1
-playback_default_blend_time = 0.0
-playback_speed = 1.0
+[node name="Animation" type="AnimationPlayer" parent="."]
 anims/attackLeft = SubResource( 3 )
 anims/attackRight = SubResource( 4 )
-blend_times = [  ]
 
-[node name="HumanFormCollision" type="CollisionPolygon2D" parent="." index="4"]
-
-build_mode = 0
+[node name="HumanFormCollision" type="CollisionPolygon2D" parent="."]
 polygon = PoolVector2Array( -0.38089, -48.4527, 4.93744, -46.049, 7.87122, -36.3179, 9.41904, -24.8733, 13.3912, -2.62927, 13.7884, 6.10944, 1.49594, 37.1342, -12.1445, 8.41623, -12.9626, -10.0854, -12.1041, -21.032, -11.6748, -26.3979, -8.67358, -40.7089, -5.44717, -46.5839 )
-_sections_unfolded = [ "Material", "Transform", "Visibility" ]
 
-[node name="CircleFormCollision" type="CollisionShape2D" parent="." index="5"]
+[node name="DetectWallLeft" type="RayCast2D" parent="HumanFormCollision"]
+position = Vector2( -5, 0 )
+rotation = 1.5708
+scale = Vector2( 1, 0.4 )
+enabled = true
+collision_mask = 5
 
+[node name="DetectWallRight" type="RayCast2D" parent="HumanFormCollision"]
+position = Vector2( 5, 0 )
+rotation = -1.5708
+scale = Vector2( 1, 0.4 )
+enabled = true
+collision_mask = 5
+
+[node name="CircleFormCollision" type="CollisionShape2D" parent="."]
 visible = false
 position = Vector2( -0.486644, -3.95717 )
 scale = Vector2( 4.50161, 4.10866 )
 shape = SubResource( 5 )
-_sections_unfolded = [ "Transform", "Visibility" ]
+disabled = true
 
-[node name="AttackCollision" type="CollisionPolygon2D" parent="." index="6"]
+[node name="DetectWallLeft" type="RayCast2D" parent="CircleFormCollision"]
+position = Vector2( -8, 0 )
+rotation = 1.5708
+scale = Vector2( 0.5, 0.1 )
+enabled = true
+collision_mask = 5
 
+[node name="DetectWallRight" type="RayCast2D" parent="CircleFormCollision"]
+position = Vector2( 8, 0 )
+rotation = -1.5708
+scale = Vector2( 0.5, 0.1 )
+enabled = true
+collision_mask = 5
+
+[node name="AttackCollision" type="CollisionPolygon2D" parent="."]
 visible = false
 position = Vector2( -44, 0 )
 scale = Vector2( -1, 1 )
-build_mode = 0
 polygon = PoolVector2Array( -13.2755, -53.9561, -37.1715, -62.2465, -56.6785, -61.2712, -73.2594, -55.4191, -86.4266, -43.7149, -88.3773, -41.7642, -75.6978, -27.6217, -70.821, -31.5231, -53.2648, -41.2765, -39.6099, -40.7889, -18.6399, -32.4984, -13.2755, -25.1833, -5.96039, -10.5531, -6.93575, 8.95389, -17.1769, 22.6088, -9.86179, 28.4608, 3.79309, 16.7567, 12.0835, 9.44156, 13.5466, -13.9668, 8.18216, -31.0354, 3.30542, -38.8382, -2.05901, -45.1779 )
 disabled = true
-_sections_unfolded = [ "Transform" ]
 
-[node name="Camera2D" type="Camera2D" parent="." index="7"]
-
-anchor_mode = 1
-rotating = false
+[node name="Camera2D" type="Camera2D" parent="."]
 current = true
-zoom = Vector2( 1, 1 )
-limit_left = -10000000
-limit_top = -10000000
-limit_right = 10000000
-limit_bottom = 10000000
-limit_smoothed = false
-drag_margin_h_enabled = true
-drag_margin_v_enabled = true
-smoothing_enabled = false
-smoothing_speed = 5.0
-offset_v = 0.0
-offset_h = 0.0
-drag_margin_left = 0.2
-drag_margin_top = 0.2
-drag_margin_right = 0.2
-drag_margin_bottom = 0.2
-editor_draw_screen = true
-editor_draw_limits = false
-editor_draw_drag_margin = false
-_sections_unfolded = [ "Smoothing", "Transform" ]
 
-[node name="Muzzle" type="Position2D" parent="." index="8"]
-
+[node name="Muzzle" type="Position2D" parent="."]
 position = Vector2( 21, -39 )
-_sections_unfolded = [ "Transform" ]
 
-[node name="Weapon" type="Node" parent="." index="9"]
+[node name="Weapon" type="Node" parent="."]
 
-[node name="Wand" type="Node" parent="Weapon" index="0" groups=[
+[node name="Wand" type="Node" parent="Weapon" groups=[
 "MagicPointsRequired",
 ]]
-
 script = ExtResource( 35 )
 
-[node name="Sounds" type="Node" parent="." index="10"]
+[node name="Sounds" type="Node" parent="."]
 
-[node name="Hit" type="AudioStreamPlayer" parent="Sounds" index="0"]
-
+[node name="Hit" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 36 )
-volume_db = 0.0
-pitch_scale = 1.0
-autoplay = false
 mix_target = 2
-bus = "Master"
-
 

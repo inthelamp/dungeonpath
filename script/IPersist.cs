@@ -28,6 +28,7 @@
 /*************************************************************************/
 using Godot;
 using System;
+using System.Collections.Generic;
 
 interface IPersist
 {

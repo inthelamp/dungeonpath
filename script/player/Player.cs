@@ -43,6 +43,8 @@ public class Player : Playable, IPersist
 	private const int JumpSpeed = 200; //400
 	private const float JumpMaxAirborneTime = 0.2f;
 
+	private enum Direction { Left = -1, Right = 1};
+
 	private bool _isInputJumping;
 	private bool _isFacingRight;
 	private float _onAirTime;
@@ -296,6 +298,36 @@ public class Player : Playable, IPersist
 		}
 	}
 
+	private bool IsRayCastColliding(Direction direction)
+	{
+		RayCast2D rayCast;
+
+		if (IsCircleForm)
+		{
+			if (direction == Direction.Right)
+			{
+				rayCast = (RayCast2D)GetNode("CircleFormCollision/DetectWallRight");	
+			}
+			else
+			{
+				rayCast = (RayCast2D)GetNode("CircleFormCollision/DetectWallLeft");
+			}	
+		}
+		else
+		{
+			if (direction == Direction.Right)
+			{
+				rayCast = (RayCast2D)GetNode("HumanFormCollision/DetectWallRight");	
+			}
+			else
+			{
+				rayCast = (RayCast2D)GetNode("HumanFormCollision/DetectWallLeft");
+			}					
+		}
+
+		return rayCast.IsColliding();
+	}
+
 	private void GetInput(float delta)
 	{
 		bool isInputWalkRight = Input.IsActionPressed("ui_right");
@@ -312,8 +344,13 @@ public class Player : Playable, IPersist
 		var force = new Vector2(0, Gravity);
 
 		if (isInputWalkLeft)
-		{
-			if (_velocity.x <= WalkMinSpeed && _velocity.x > -WALK_MAX_SPEED)
+		{  
+			//Checking collisions while walking 
+			if (IsRayCastColliding(Direction.Left))
+			{
+				isStop = true;
+			}
+			else if (_velocity.x <= WalkMinSpeed && _velocity.x > -WALK_MAX_SPEED)
 			{
 				force.x -= WalkForce;
 				isStop = false;
@@ -321,7 +358,12 @@ public class Player : Playable, IPersist
 		}
 		else if (isInputWalkRight)
 		{
-			if (_velocity.x >= -WalkMinSpeed && _velocity.x < WALK_MAX_SPEED)
+			//Checking collisions while walking 			
+			if (IsRayCastColliding(Direction.Right))
+			{
+				isStop = true;
+			}			
+			else if (_velocity.x >= -WalkMinSpeed && _velocity.x < WALK_MAX_SPEED)
 			{
 				force.x += WalkForce;
 				isStop = false;
@@ -360,7 +402,12 @@ public class Player : Playable, IPersist
 
 			if (isInputAttackLeft)
 			{
-				if (_velocity.x <= WalkMinSpeed && _velocity.x > -WALK_MAX_SPEED)
+				//Checking collisions while attacking		
+				if (IsRayCastColliding(Direction.Left))
+				{
+					isStop = true;
+				}			
+				else if (_velocity.x <= WalkMinSpeed && _velocity.x > -WALK_MAX_SPEED)
 				{
 					force.x -= AttackForce;
 					isStop = false;
@@ -368,7 +415,12 @@ public class Player : Playable, IPersist
 			}
 			else if (isInputAttackRight)
 			{
-				if (_velocity.x >= -WalkMinSpeed && _velocity.x < WALK_MAX_SPEED)
+				//Checking collisions while attacking				
+				if (IsRayCastColliding(Direction.Right))
+				{
+					isStop = true;
+				}					
+				else if (_velocity.x >= -WalkMinSpeed && _velocity.x < WALK_MAX_SPEED)
 				{
 					force.x += AttackForce;
 					isStop = false;
@@ -456,7 +508,7 @@ public class Player : Playable, IPersist
 		var resultArray = spaceState.IntersectPoint(targetPosition);
 		if (resultArray != null && resultArray.Count > 0)
 		{
-			var result = (Dictionary)resultArray[0];
+			var result = (Godot.Collections.Dictionary)resultArray[0];
 			if (result != null && result.ContainsKey("collider"))
 			{
 				if (result["collider"] is Mob)
@@ -489,7 +541,7 @@ public class Player : Playable, IPersist
 				_anim.Play("attackRight");
 			}
 
-			KinematicCollision2D collision = MoveAndCollide(velocity);
+			KinematicCollision2D collision = MoveAndCollide(velocity, false);
 			if (collision != null && collision.Collider is Mob)
 			{
 				Hit((Mob)collision.Collider);
@@ -688,9 +740,6 @@ public class Player : Playable, IPersist
 		//Disable collisions
 		SetCollisionsEnabled(false);
 
-		//Disable combat ability after loss of its life
-		DisableCombat();
-
 		Hide(); //Player disappears after being hit.
 
 		//Display a message the player is dead now.
@@ -729,10 +778,10 @@ public class Player : Playable, IPersist
 	}
 
 	//Properties to save, implementing the method of IPersist
-	public Dictionary<object, object> Save()
+	public System.Collections.Generic.Dictionary<object, object> Save()
 	{
 		var path = GetParent().GetPath().ToString();
-		return new Dictionary<object, object>()
+		return new System.Collections.Generic.Dictionary<object, object>()
 		{
 			{ "Stage", Stage },
 			{ "Name", Name },

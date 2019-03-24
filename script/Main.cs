@@ -28,8 +28,6 @@
 /*************************************************************************/
 using Godot;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using Newtonsoft.Json;
 
 public class Main : Node
@@ -42,7 +40,7 @@ public class Main : Node
 		//Load the custom images for the mouse cursor
 		var arrowCursor = ResourceLoader.Load(ArrowCursorPath);
 
-		//Input.SetMouseMode(Input.MouseMode.Confined);
+		Input.SetMouseMode(Input.MouseMode.Confined);
 		Input.SetCustomMouseCursor(arrowCursor);
 	}
 
@@ -66,10 +64,10 @@ public class Main : Node
 		{
 			AddChild(gameWorld);
 		}
-		gameWorld.GameStart();	
+		gameWorld.GameStart();
 			
 		RemoveChild(splash);
-		splash.QueueFree();		
+		splash.QueueFree();
 	}
 }
 

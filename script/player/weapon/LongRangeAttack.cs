@@ -60,7 +60,7 @@ public class LongRangeAttack : Attack
 
 	public override void _PhysicsProcess(float delta)
 	{
-		KinematicCollision2D collision = MoveAndCollide(_velocity * delta);
+		KinematicCollision2D collision = MoveAndCollide(_velocity * delta, false);
 
 		if (collision != null) {
 			if (!_explosion.Visible)
