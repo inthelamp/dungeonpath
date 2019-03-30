@@ -439,12 +439,7 @@ public class Player : Playable, IPersist
 
 			if (isInputAttackLeft)
 			{
-				//Checking collisions while attacking		
-				if (IsCollidedWithWall(Direction.Left))
-				{
-					isStop = true;
-				}			
-				else if (_velocity.x <= WalkMinSpeed && _velocity.x > -WALK_MAX_SPEED)
+				if (_velocity.x <= WalkMinSpeed && _velocity.x > -WALK_MAX_SPEED)
 				{
 					force.x -= AttackForce;
 					isStop = false;
@@ -452,12 +447,7 @@ public class Player : Playable, IPersist
 			}
 			else if (isInputAttackRight)
 			{
-				//Checking collisions while attacking				
-				if (IsCollidedWithWall(Direction.Right))
-				{
-					isStop = true;
-				}					
-				else if (_velocity.x >= -WalkMinSpeed && _velocity.x < WALK_MAX_SPEED)
+				if (_velocity.x >= -WalkMinSpeed && _velocity.x < WALK_MAX_SPEED)
 				{
 					force.x += AttackForce;
 					isStop = false;
