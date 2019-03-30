@@ -52,7 +52,6 @@ public class Player : Playable, IPersist
 	private AnimationPlayer _anim;
 	private AnimatedSprite _animatedSprite;
 	private TextureRect _attackEffect;
-	private CollisionShape2D _circleFormCollision;
 	private LongRangeMagicWeapon _wand;
 
 	private Vector2 _velocity = new Vector2();
@@ -66,9 +65,9 @@ public class Player : Playable, IPersist
 		_wand = (LongRangeMagicWeapon)GetNode("Weapon/Wand");
 		_isFacingRight = true;
 
-		//Disable these collisions
-		_circleFormCollision = (CollisionShape2D)GetNode("CircleFormCollision");
-		_circleFormCollision.Disabled = true;
+		//Disable this collision
+		var circleFormCollision = (CollisionShape2D)GetNode("CircleFormCollision");
+		SetDisableCollision(circleFormCollision, true);
 	}
 
 	public void Start()
@@ -298,7 +297,45 @@ public class Player : Playable, IPersist
 		}
 	}
 
-	private bool IsRayCastColliding(Direction direction)
+	private void SetDisableCollision(bool disable)
+	{
+		if (IsCircleForm)
+		{
+			SetDisableCollision((CollisionShape2D)GetNode("CircleFormCollision"), disable);
+		}
+		else
+		{
+			SetDisableCollision((CollisionPolygon2D)GetNode("HumanFormCollision"), disable);
+		}	
+	}
+
+	private void SetDisableCollision(CollisionShape2D collision , bool disable)
+	{	
+		collision.Disabled = disable;
+		if (collision.Disabled)
+		{
+			collision.Hide();
+		}
+		else
+		{
+			collision.Show();
+		}
+	}
+
+	private void SetDisableCollision(CollisionPolygon2D collision , bool disable)
+	{
+		collision.Disabled = disable;
+		if (collision.Disabled)
+		{
+			collision.Hide();
+		}
+		else
+		{
+			collision.Show();
+		}	
+	}	
+
+	private bool IsCollidedWithWall(Direction direction)
 	{
 		RayCast2D rayCast;
 
@@ -346,7 +383,7 @@ public class Player : Playable, IPersist
 		if (isInputWalkLeft)
 		{  
 			//Checking collisions while walking 
-			if (IsRayCastColliding(Direction.Left))
+			if (IsCollidedWithWall(Direction.Left))
 			{
 				isStop = true;
 			}
@@ -359,7 +396,7 @@ public class Player : Playable, IPersist
 		else if (isInputWalkRight)
 		{
 			//Checking collisions while walking 			
-			if (IsRayCastColliding(Direction.Right))
+			if (IsCollidedWithWall(Direction.Right))
 			{
 				isStop = true;
 			}			
@@ -377,8 +414,8 @@ public class Player : Playable, IPersist
 				IsCircleForm = true;
 
 				//Enable this collision
-				_circleFormCollision.Show();
-				_circleFormCollision.Disabled = false;
+				var circleFormCollision = (CollisionShape2D)GetNode("CircleFormCollision");
+				SetDisableCollision(circleFormCollision, false);
 			}
 			else
 			{
@@ -403,7 +440,7 @@ public class Player : Playable, IPersist
 			if (isInputAttackLeft)
 			{
 				//Checking collisions while attacking		
-				if (IsRayCastColliding(Direction.Left))
+				if (IsCollidedWithWall(Direction.Left))
 				{
 					isStop = true;
 				}			
@@ -416,7 +453,7 @@ public class Player : Playable, IPersist
 			else if (isInputAttackRight)
 			{
 				//Checking collisions while attacking				
-				if (IsRayCastColliding(Direction.Right))
+				if (IsCollidedWithWall(Direction.Right))
 				{
 					isStop = true;
 				}					
@@ -427,6 +464,15 @@ public class Player : Playable, IPersist
 				}
 			}
 		}
+
+		//Player can jump only from the floor.
+		if (isInputJump && IsOnFloor())
+		{
+			_isInputJumping = true;
+			_onAirTime = JumpMaxAirborneTime;
+			//Disable collisions with enemies
+			SetEnableCollisionsBits(false);
+		} 			
 
 		if (isStop)
 		{
@@ -439,13 +485,6 @@ public class Player : Playable, IPersist
 				vLength = 0;
 			}
 			_velocity.x = vLength * vSign;
-		}
-
-		//Player can jump only from the floor.
-		if (isInputJump && IsOnFloor())
-		{
-			_isInputJumping = true;
-			_onAirTime = JumpMaxAirborneTime;
 		}
 
 		_velocity += force * delta;
@@ -486,12 +525,11 @@ public class Player : Playable, IPersist
 
 	private void DisableCombat()
 	{
+		//Disable collision
+		SetDisableCollision(true);
+
 		IsReadyToFight = false;
 		IsCircleForm = false;
-
-		//Disable these collisions
-		_circleFormCollision.Hide();
-		_circleFormCollision.Disabled = true;
 	}
 
 	private void OnHudSpotTarget()
@@ -607,14 +645,18 @@ public class Player : Playable, IPersist
 		{
 			_animatedSprite.Animation = "jump";
 		}
+
 		if (_onAirTime > 0)
 		{
 			velocityY = -JumpSpeed;
 			_onAirTime -= delta;
 		}
+
 		if (IsOnFloor())
 		{
 			_isInputJumping = false;
+			//Enable collisions with enemies	
+			SetEnableCollisionsBits(true);	
 		}
 
 		return velocityY;
@@ -738,7 +780,7 @@ public class Player : Playable, IPersist
 		IsDead = true;
 
 		//Disable collisions
-		SetCollisionsEnabled(false);
+		SetEnableCollisionsBits(false);
 
 		Hide(); //Player disappears after being hit.
 
@@ -748,12 +790,12 @@ public class Player : Playable, IPersist
 	}
 
 	//Set collisions with enemies and objects
-	private void SetCollisionsEnabled(bool isCollisionEnabled)
+	private void SetEnableCollisionsBits(bool isEnabled)
 	{
 		//Collision layer and mask bits start from 0.
-		SetCollisionLayerBit(1, isCollisionEnabled);
-		SetCollisionMaskBit(2, isCollisionEnabled);
-		SetCollisionMaskBit(3, isCollisionEnabled);	
+		SetCollisionLayerBit(1, isEnabled);
+		SetCollisionMaskBit(2, isEnabled);
+		SetCollisionMaskBit(3, isEnabled);	
 	}	
 
 	private void OnHudEnableFeature(string featureName)
