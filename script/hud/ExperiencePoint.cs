@@ -40,12 +40,12 @@ public class ExperiencePoint : TextureProgress
 	public void SetFigureText(string figure)
 	{
 		var label = (Label)GetNode("Figure");
-		label.SetText(figure);
+		label.Text = figure;
 	}
 
 	public void OnValueChanged(float value)
 	{
-		SetFigureText(((int)value).ToString()+" / "+GetMax().ToString());
+		SetFigureText(((int)value).ToString()+" / " + MaxValue.ToString());
 	}
 
 }

@@ -35,67 +35,67 @@ public class Global : Node
 
   public override void _Ready()
   {
-      Viewport root = GetTree().GetRoot();
-      MainScene = root.GetChild(root.GetChildCount() - 1);
+	  Viewport root = GetTree().Root;
+	  MainScene = root.GetChild(root.GetChildCount() - 1);
   }
 
   public void GoToScene(Node currentScene, string path)
   {
-    CallDeferred(nameof(DeferredGoToScene), currentScene, path);
+	CallDeferred(nameof(DeferredGoToScene), currentScene, path);
   }
 
   public void GoToSceneWithWorld(World world, string path)
   {
-    CallDeferred(nameof(DeferredGoToSceneWithWorld), world, path);
+	CallDeferred(nameof(DeferredGoToSceneWithWorld), world, path);
   }
 
   public void DeferredGoToScene(Node currentScene, string path)
   {
-      //Immediately free the current scene, there is no risk here
-	  	if (currentScene == null) 
-      { 
-        return;
-      }
+	  //Immediately free the current scene, there is no risk here
+	  if (currentScene == null) 
+	  { 
+		return;
+	  }
 
-      currentScene.Free();
+	  currentScene.Free();
 
-      //Load a new scene.
-      var nextScene = (PackedScene)GD.Load(path);
+	  //Load a new scene.
+	  var nextScene = (PackedScene)GD.Load(path);
 
-      //Instance the new scene
-      currentScene = nextScene.Instance();
+	  //Instance the new scene
+	  currentScene = nextScene.Instance();
 
-      //Add it to the active scene, as child of root
-      MainScene.AddChild(currentScene);
+	  //Add it to the active scene, as child of root
+	  MainScene.AddChild(currentScene);
 
-      if (currentScene is Splash)
-      { 
-        var splashScene = (Splash)currentScene;
-        splashScene.Start();
-      }
+	  if (currentScene is Splash)
+	  { 
+		var splashScene = (Splash)currentScene;
+		splashScene.Start();
+	  }
   }
 
   public void DeferredGoToSceneWithWorld(World world, string path)
   {
-	  	if (world == null) 
-      { 
-        return; //Error
-      }
+	  if (world == null) 
+	  { 
+		return; //Error
+	  }
 
-      //Load a new scene.
-      var nextScene = (PackedScene)GD.Load(path);
+	  //Load a new scene.
+	  var nextScene = (PackedScene)GD.Load(path);
 
-      //Instance the new scene.
-      var currentScene = nextScene.Instance();
+	  //Instance the new scene.
+	  var currentScene = nextScene.Instance();
 
-      //Add it to the active scene, as child of root
-      MainScene.AddChild(currentScene);
+	  //Add it to the active scene, as child of root
+	  MainScene.AddChild(currentScene);
 
-      if (currentScene is Splash)
-      { 
-        var splashScene = (Splash)currentScene;
-        splashScene.GameWorld = world;
-        splashScene.Start();
-      }
+	  if (currentScene is Splash)
+	  { 
+		var splashScene = (Splash)currentScene;
+		splashScene.GameWorld = world;
+		splashScene.Start();
+	  }
   } 
 }

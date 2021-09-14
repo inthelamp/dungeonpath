@@ -4,38 +4,17 @@
 [ext_resource path="res://script/hud/ShortMessage.cs" type="Script" id=2]
 
 [sub_resource type="DynamicFont" id=1]
-
 size = 20
-use_mipmaps = false
-use_filter = false
 font_data = ExtResource( 1 )
-_sections_unfolded = [ "Settings" ]
 
 [node name="ShortMessage" type="Label"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
 margin_right = 140.0
 margin_bottom = 25.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 2
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 4
 custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 0.170654, 0.910156, 0.251537, 1 )
 custom_colors/font_color_shadow = Color( 0.0383835, 0.0373535, 0.0703125, 1 )
 text = "Out of range!"
 align = 1
 valign = 1
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
 script = ExtResource( 2 )
-_sections_unfolded = [ "Rect", "custom_colors", "custom_fonts" ]
 DisplayTime = 1.5
-
-

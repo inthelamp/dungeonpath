@@ -8,13 +8,13 @@
 [ext_resource path="res://art/mob/wing.png" type="Texture" id=6]
 [ext_resource path="res://audio/hit.wav" type="AudioStream" id=7]
 
-[sub_resource type="PhysicsMaterial" id=6]
+[sub_resource type="PhysicsMaterial" id=1]
 
-[sub_resource type="DynamicFont" id=1]
+[sub_resource type="DynamicFont" id=2]
 size = 10
 font_data = ExtResource( 2 )
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=3]
 length = 1.6
 loop = true
 step = 0.4
@@ -43,7 +43,7 @@ tracks/1/keys = {
 "values": [ 0.0, 90.0, 180.0, 270.0, 360.0 ]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=4]
 length = 0.4
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:rotation_degrees")
@@ -94,7 +94,7 @@ tracks/3/keys = {
 "values": [ 0.0, 90.0, 180.0, 270.0, 360.0 ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=5]
 length = 4.0
 step = 1.0
 tracks/0/type = "value"
@@ -134,14 +134,14 @@ tracks/2/keys = {
 "values": [ 0.0, 90.0, 180.0, 270.0, 360.0 ]
 }
 
-[sub_resource type="CircleShape2D" id=5]
+[sub_resource type="CircleShape2D" id=6]
 radius = 14.5848
 
 [node name="FlyingBubble" type="RigidBody2D"]
 pause_mode = 1
 collision_layer = 4
 collision_mask = 2
-physics_material_override = SubResource( 6 )
+physics_material_override = SubResource( 1 )
 gravity_scale = 0.0
 contacts_reported = 4
 contact_monitor = true
@@ -156,7 +156,7 @@ margin_left = -36.0
 margin_top = -60.0
 margin_right = 40.0
 margin_bottom = -31.0
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 2 )
 text = "Flying Bubble
 [Level 1]"
 align = 1
@@ -183,9 +183,9 @@ scale = Vector2( 10, 10 )
 pause_particles = false
 
 [node name="Anim" type="AnimationPlayer" parent="."]
-anims/fly = SubResource( 2 )
-anims/hit = SubResource( 3 )
-anims/idle = SubResource( 4 )
+anims/fly = SubResource( 3 )
+anims/hit = SubResource( 4 )
+anims/idle = SubResource( 5 )
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 5 )
@@ -199,7 +199,7 @@ texture = ExtResource( 6 )
 position = Vector2( -0.490625, 0.0391857 )
 rotation = 6.28319
 scale = Vector2( 3.18793, 2.25118 )
-shape = SubResource( 5 )
+shape = SubResource( 6 )
 
 [node name="CombatDelay" type="Timer" parent="."]
 
@@ -207,7 +207,6 @@ shape = SubResource( 5 )
 
 [node name="Hit" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 7 )
-
 [connection signal="body_entered" from="." to="." method="OnBodyEntered"]
 [connection signal="viewport_exited" from="Enabler" to="." method="OnEnablerViewportExited"]
 [connection signal="animation_finished" from="Anim" to="." method="OnAnimationFinished"]

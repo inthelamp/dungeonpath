@@ -39,7 +39,7 @@ public class LongRangeAttack : Attack
     public override void _Ready()
     {
 		_explosion = (Particles2D)GetNode("Explosion");
-		_explosion.SetVisible(false);
+		_explosion.Visible = false;
     }
 
 	public override void Start(Vector2 pos, float dir)
@@ -66,7 +66,7 @@ public class LongRangeAttack : Attack
 			if (!_explosion.Visible)
 			{
 				_isExplosionStarted = true;
-				_explosion.SetVisible(true);
+				_explosion.Visible = true;
 			}
 
 			if (!IsInAttack && collision.Collider is Mob)

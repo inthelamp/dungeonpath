@@ -37,49 +37,49 @@ public class World : Node
 
   public void GameStart()
   {
-    _player = (Player)GetNode("Player");
-    _hud = (HUD)GetNode("HUD");
-    _hud.Initialize(_player);
+	_player = (Player)GetNode("Player");
+	_hud = (HUD)GetNode("HUD");
+	_hud.Initialize(_player);
 
-    _enemies = GetNode("Enemies");
-    var children = _enemies.GetChildren();
-    foreach (Mob enemy in children)
-    {
-	    var mob = (Mob) enemy;
-      mob.Start();
-    }
-    
-    _player.Start();
+	_enemies = GetNode("Enemies");
+	var children = _enemies.GetChildren();
+	foreach (Mob enemy in children)
+	{
+		var mob = (Mob) enemy;
+	  mob.Start();
+	}
+	
+	_player.Start();
   }
 
 
   private void OnMobDie(Mob mob)
   {
-    //Earn experience points from mob
-    _player.AddEXP(mob.GetEXP());
+	//Earn experience points from mob
+	_player.AddEXP(mob.GetEXP());
 
-    //Release the mob
-    if (_player.TargetMob != null && _player.TargetMob == mob)
-    {
-      _player.TargetMob = null;
-    }
+	//Release the mob
+	if (_player.TargetMob != null && _player.TargetMob == mob)
+	{
+	  _player.TargetMob = null;
+	}
 
-    //Remove the mob
-    _enemies.RemoveChild(mob);
-    mob.Die();
+	//Remove the mob
+	_enemies.RemoveChild(mob);
+	mob.Die();
   }
 
   private void GameOver()
   {
-    var global = (Global)GetNode("/root/Global");
+	var global = (Global)GetNode("/root/Global");
 		global.GoToScene(this, "res://scene/EndSplash.tscn");
   }
 
   //Keep playing
 	private void OnBackgroundSoundFinished()
 	{
-    var backgroundSound = (AudioStreamPlayer)GetNode("BackgroundSound");
-    backgroundSound.Play();
+	var backgroundSound = (AudioStreamPlayer)GetNode("BackgroundSound");
+	backgroundSound.Play();
 	}
 
   //Teleport to the next stage
@@ -87,8 +87,8 @@ public class World : Node
 	{
 		++player.Stage;
 
-    //Move to a splash scene to rebuild this game world 
-    var global = (Global)GetNode("/root/Global");
+	//Move to a splash scene to rebuild this game world 
+	var global = (Global)GetNode("/root/Global");
   	global.GoToSceneWithWorld(this, "res://scene/StageSplash.tscn");  
 	}
 }

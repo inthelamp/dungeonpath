@@ -48,18 +48,18 @@ public class HUD : CanvasLayer
 	public void Initialize(Player player)
 	{
 		var hp = (HealthPoint)GetNode("Status/HealthPoint");
-		hp.SetMax(player.MaxHP);
+		hp.MaxValue = player.MaxHP;
 		player.CurrentHP = player.MaxHP;
-		hp.SetValue(player.CurrentHP);
+		hp.Value = player.CurrentHP;
 
 		var mp = (MagicPoint)GetNode("Status/MagicPoint");
-		mp.SetMax(player.MaxMP);
+		mp.MaxValue = player.MaxMP;
 		player.CurrentMP = player.MaxMP;
-		mp.SetValue(player.CurrentMP);
+		mp.Value = player.CurrentMP;
 
 		var exp = (ExperiencePoint)GetNode("Status/ExperiencePoint");
-		exp.SetMax(player.MaxEXP);
-		exp.SetValue(player.CurrentEXP);
+		exp.MaxValue = player.MaxEXP;
+		exp.Value = player.CurrentEXP;
 
 		//If it has no experience points, i.e. 0, the value is the same as its old value, and
 		//doesn't call OnValueChanged(), leaving Experience Points bar uninitialized.
@@ -70,7 +70,7 @@ public class HUD : CanvasLayer
 		}
 
 		var level = (Label)GetNode("Status/Level");
-		level.SetText("Level " + player.Level.ToString());
+		level.Text = "Level " + player.Level.ToString();
 	}
 
 	public void ShowMessage(string text)
@@ -142,21 +142,21 @@ public class HUD : CanvasLayer
 
 	private void OnPlayerShootFireBall()
 	{
-	    var circleButton = (CircleButton)GetNode("CircleButton/FireBall");
+		var circleButton = (CircleButton)GetNode("CircleButton/FireBall");
 		circleButton.Hide();
-	    var circleProgress =(CircleProgress)GetNode("CircleProgress/FireBall");
+		var circleProgress =(CircleProgress)GetNode("CircleProgress/FireBall");
 		circleProgress.Show();
 		circleProgress.Start();
 	}
 
 	public override void _Process(float delta)
 	{
-		bool isInputCancel = Input.IsActionPressed("ui__cancel");
+		bool isInputCancel = Input.IsActionPressed("ui_cancel");
 		bool isInputMouseLeftClick = Input.IsActionJustPressed("mouse_left_click");
 		var circleButton = (HBoxContainer)GetNode("CircleButton");
 
 		//Clicked on a mob to lock on
-		if (isInputMouseLeftClick && GetViewport().GetMousePosition().y <= circleButton.GetPosition().y)
+		if (isInputMouseLeftClick && GetViewport().GetMousePosition().y <= circleButton.RectPosition.y)
 		{
 			EmitSignal("SpotTarget");
 		}
@@ -178,9 +178,9 @@ public class HUD : CanvasLayer
 
 	private void OnEndCircleProgress(string featureName)
 	{
-	    var circleButton = (CircleButton)GetNode("CircleButton/" + featureName);
+		var circleButton = (CircleButton)GetNode("CircleButton/" + featureName);
 		circleButton.Show();
-	    var circleProgress = (CircleProgress)GetNode("CircleProgress/" + featureName);
+		var circleProgress = (CircleProgress)GetNode("CircleProgress/" + featureName);
 		circleProgress.Hide();
 		EmitSignal("EnableFeature", featureName);
 	}

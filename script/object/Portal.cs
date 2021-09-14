@@ -34,17 +34,17 @@ public class Portal : Sprite
 	[Signal] 
 	public delegate void Entered();
 
-    private void OnAreaBodyEntered(Godot.Object body)
-    {
-        if (body is Player)
-        {
-            var player = (Player)body;
-            if (!player.IsEntering)
-            {
-                player.IsEntering = true;
-                
-                EmitSignal("Entered", (Player)body);
-            }
-        }
-    }	
+	private void OnAreaBodyEntered(Godot.Object body)
+	{
+		if (body is Player)
+		{
+			var player = (Player)body;
+			if (!player.IsEntering)
+			{
+				player.IsEntering = true;
+				
+				EmitSignal("Entered", (Player)body);
+			}
+		}
+	}	
 }

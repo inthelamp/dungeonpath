@@ -39,9 +39,9 @@ public class Splash : Node
 	protected const string StageConfig = "res://stage/stagesSerialized.json";    
 	protected const int FirstStage = 1;
 
-    [Signal]
-    public delegate void FinishedLoading();  
-    public World GameWorld { get; set; }
+	[Signal]
+	public delegate void FinishedLoading();  
+	public World GameWorld { get; set; }
 
 	public void Start()
 	{
@@ -110,7 +110,7 @@ public class Splash : Node
 	private void LoadGame(File saveGame)
 	{
 		//Load the file line by line and process that dictionary to restore the object it represents
-		saveGame.Open("user://savegame.save", (int)File.ModeFlags.Read);
+		saveGame.Open("user://savegame.save", File.ModeFlags.Read);
 
 		//Retrieve nodes specified with "Persist", implementing methods of the interface IPersist
 		var saveNodes = GetTree().GetNodesInGroup("Persist");
@@ -156,14 +156,14 @@ public class Splash : Node
 			{
 				//Locate the player at the safe place.
 				var startPosition = (Position2D) GameWorld.GetNode("StartPosition");
-				newObject.SetPosition(startPosition.GetPosition());			
+				newObject.Position = startPosition.Position;			
 				newObject.IsDead = false;					
 			}
 			else
 			{
 				var posX = Convert.ToSingle(currentLine["PosX"]);
 				var posY = Convert.ToSingle(currentLine["PosY"]);
-				newObject.SetPosition(new Vector2(posX, posY));				
+				newObject.Position = new Vector2(posX, posY);				
 			}
 
 			if (currentLine["Level"] != null)
@@ -214,7 +214,7 @@ public class Splash : Node
 			return; //Handling error
 		}
 
-		aFile.Open(StageConfig, (int)File.ModeFlags.Read);
+		aFile.Open(StageConfig, File.ModeFlags.Read);
 
 		while (!aFile.EofReached())
 		{
@@ -234,15 +234,11 @@ public class Splash : Node
 
 			//Set the start position of the player in this stage
 			Position2D startPosition = (Position2D)GameWorld.GetNode("StartPosition");
-			startPosition.SetPosition(new Vector2(stage.startPosX, stage.startPosY));
+			startPosition.Position = new Vector2(stage.startPosX, stage.startPosY);
 
 			//Set Brackground
 			Sprite background = (Sprite)GameWorld.GetNode("ParallaxBackground/ParallaxLayer/Background");
-			var img = new Image();
-			var imgTexture = new ImageTexture();
-			img.Load(stage.backgroundImg);
-			imgTexture.CreateFromImage(img);
-			background.SetTexture(imgTexture);
+			background.Texture = ResourceLoader.Load(stage.backgroundImg) as Texture;
 
 			//Create TileMap
 			var tileMapScene = (PackedScene)GD.Load(stage.mapScene);
@@ -310,12 +306,12 @@ public class Splash : Node
 					}
 				}
 				else
-				{															//MovingMob mobs
-					var enemyNode = (MovingMob)enemyScene.Instance(); 		//Instance a mob
+				{															//WalkingMob mobs
+					var enemyNode = (WalkingMob)enemyScene.Instance(); 		//Instance a mob
 					enemyNode.Level = enemy.level;
 					enemyNode.MinSpeed= enemy.minSpeed;
 					enemyNode.MaxSpeed= enemy.maxSpeed;
-					enemyNode.SetPosition(new Vector2(enemy.posX, enemy.posY));
+					enemyNode.Position = new Vector2(enemy.posX, enemy.posY);
 					enemyNode.MovingTypes = enemy.movingTypes;
 					enemiesNode.AddChild(enemyNode);
 					enemyNode.Connect("MobDie", GameWorld, "OnMobDie");
@@ -355,7 +351,7 @@ public class Splash : Node
 				player.LevelUp(0);
 			}
 	
-  			player.Position = startPosition.GetPosition();
+  			player.Position = startPosition.Position;
 		}
 		aFile.Close();
 	}	

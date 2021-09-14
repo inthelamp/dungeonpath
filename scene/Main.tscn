@@ -8,4 +8,3 @@ pause_mode = 2
 script = ExtResource( 1 )
 
 [node name="MainSplash" parent="." instance=ExtResource( 2 )]
-

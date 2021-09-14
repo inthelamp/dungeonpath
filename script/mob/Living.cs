@@ -29,33 +29,21 @@
 using Godot;
 using System;
 
-public abstract class Living : RigidBody2D
+public abstract class Living : Moving
 {
 	[Export]
   	public int Level; // How fast the attack will move (pixels/sec).
-
-	public Sprite MobSprite { get; set; } //Mob Sprite
-	public AnimationPlayer AnimatPlay { get; set; } //AnimationPlayer
-	public string Animation { get; set; } //Animation like "idle", "walk", "hit"
-	public PathFollow2D SpawnLocation { get; set; }
 
 	public int MaxHP { get; set; } //Maximum Health Point
 	public int MaxMP { get; set; } //Maximum Magic Point
 	public float CurrentHP { get; set; } //Current Health Point
 	public float CurrentMP { get; set; } //Current Magic Point
-	public int MinSpeed { get; set; } //Minimum speed
-	public int MaxSpeed { get; set; } //Maximum speed
 
 	public Playable TargetPlayer { get; set; }  //The player to attack
-
-	public String[] MovingTypes; //Define moving animations
 
 	public bool IsInAttack { get; set; }	//check if it is in attacking player
 	public bool IsLockedOn { get; set; } 	//check if mob is locked on by player
 	public bool IsDead { get; set; }        //check if mob is dead
-
-	//Start moving
-	public abstract void Start();
 
 	//Delete mob
 	public abstract void Die();

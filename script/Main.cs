@@ -47,7 +47,7 @@ public class Main : Node
 	public void SaveGame()
 	{
 		var saveGame = new File();
-		saveGame.Open("user://savegame.save", (int)File.ModeFlags.Write);
+		saveGame.Open("user://savegame.save", File.ModeFlags.Write);
 
 		var saveNodes = GetTree().GetNodesInGroup("Persist");
 		foreach (IPersist saveNode in saveNodes)

@@ -163,7 +163,7 @@ public class Player : Playable, IPersist
 		//update HUD
 		var hud = GetParent().GetNode("HUD");
 		var hp = (HealthPoint)hud.GetNode("Status/HealthPoint");
-		hp.SetValue(Convert.ToSingle(CurrentHP));
+		hp.MaxValue = Convert.ToSingle(CurrentHP);
 
 		if (CurrentHP == 0)
 		{
@@ -185,7 +185,7 @@ public class Player : Playable, IPersist
 		var hud = GetParent().GetNode("HUD");
 		var mp = (MagicPoint)hud.GetNode("Status/MagicPoint");
 		
-		mp.SetValue(Convert.ToSingle(CurrentMP));
+		mp.Value = Convert.ToSingle(CurrentMP);
 	}	
 
 	//Display damage points given by attack from mob
@@ -200,7 +200,7 @@ public class Player : Playable, IPersist
 		var damagePointsDisplay = (ShortMessage)damagePointsDisplayScene.Instance();
 
 		//update label
-		damagePointsDisplay.SetText("-" + damagePoints.ToString());
+		damagePointsDisplay.Text = "-" + damagePoints.ToString();
 		AddChild(damagePointsDisplay);
 		damagePointsDisplay.Start();
 	}
@@ -217,7 +217,7 @@ public class Player : Playable, IPersist
 		var expDisplay = (ShortMessage)expDisplayScene.Instance();
 
 		//update the label
-		expDisplay.SetText("+" + exp.ToString());
+		expDisplay.Text = "+" + exp.ToString();
 		AddChild(expDisplay);
 		expDisplay.Start();
 	}
@@ -234,7 +234,7 @@ public class Player : Playable, IPersist
 		var shortMessage = (ShortMessage)shortMessageScene.Instance();
 
 		//update the label
-		shortMessage.SetText(message);
+		shortMessage.Text = message;
 		AddChild(shortMessage);
 		shortMessage.Start();
 	}
@@ -250,7 +250,7 @@ public class Player : Playable, IPersist
 		var shortMessage = (ShortMessage)shortMessageScene.Instance();
 
 		//update the label
-		shortMessage.SetText(message);
+		shortMessage.Text = message;
 		AddChild(shortMessage);
 		shortMessage.Start(pos);
 	}
@@ -268,7 +268,7 @@ public class Player : Playable, IPersist
 		{
 			var hud = GetParent().GetNode("HUD");
 			var expNode = (ExperiencePoint)hud.GetNode("Status/ExperiencePoint");
-			expNode.SetValue(CurrentEXP);
+			expNode.Value = CurrentEXP;
 		}
 	}
 
@@ -537,7 +537,7 @@ public class Player : Playable, IPersist
 		if (resultArray != null && resultArray.Count > 0)
 		{
 			var result = (Godot.Collections.Dictionary)resultArray[0];
-			if (result != null && result.ContainsKey("collider"))
+			if (result != null && result.Contains("collider"))
 			{
 				if (result["collider"] is Mob)
 				{
@@ -555,16 +555,16 @@ public class Player : Playable, IPersist
 			if (velocity.x < 0)
 			{
 				//Attack effect at the left side of the screen
-				var pos = _attackEffect.GetPosition();
+				var pos = _attackEffect.RectPosition;
 				_attackEffect.SetPosition(new Vector2(Math.Abs(pos.x) * -1, pos.y));
-				_attackEffect.SetScale(new Vector2(-1, 1));
+				_attackEffect.RectScale = new Vector2(-1, 1);
 
 				_anim.Play("attackLeft");
 			} else {
 				//Attack effect at the right side of the screen
-				var pos = _attackEffect.GetPosition();
+				var pos = _attackEffect.RectPosition;
 				_attackEffect.SetPosition(new Vector2(Math.Abs(pos.x), pos.y));
-				_attackEffect.SetScale(new Vector2(1, 1));
+				_attackEffect.RectScale = new Vector2(1, 1);
 
 				_anim.Play("attackRight");
 			}
@@ -672,14 +672,14 @@ public class Player : Playable, IPersist
 
 		if (velocityX < 0)
 		{
-			var pos = _muzzle.GetPosition();
-			_muzzle.SetPosition(new Vector2(Math.Abs(pos.x) * -1, pos.y));
+			var pos = _muzzle.Position;
+			_muzzle.Position = new Vector2(Math.Abs(pos.x) * -1, pos.y);
 
 			_isFacingRight = false;
 			_animatedSprite.FlipH = true;
 		} else {
-			var pos = _muzzle.GetPosition();
-			_muzzle.SetPosition(new Vector2(Math.Abs(pos.x), pos.y));
+			var pos = _muzzle.Position;
+			_muzzle.Position = new Vector2(Math.Abs(pos.x), pos.y);
 
 			_isFacingRight = true;
 			_animatedSprite.FlipH = false;
@@ -817,7 +817,7 @@ public class Player : Playable, IPersist
 		{
 			{ "Stage", Stage },
 			{ "Name", Name },
-			{ "Filename", GetFilename() },
+			{ "Filename", Filename },
 			{ "Parent", path },
 			{ "PosX", Position.x }, //Vector2 is not supported by JSON
 			{ "PosY", Position.y },

@@ -45,26 +45,26 @@ public class CircleProgress : TextureProgress
 	public void Start()
 	{
 		SetProcess(true);
-		SetMax(LatencyTime);
+		MaxValue = LatencyTime;
 		_timer = 0;
 	}
 
 	public override void _Process(float delta)
 	{
 		_timer += delta;
-		if (GetValue() == LatencyTime)
+		if (Value == LatencyTime)
 		{
 			Reset();
 		}
 		else
 		{
-			SetValue(_timer/LatencyTime);
+			Value =_timer/LatencyTime;
 		}
 	}
 
 	private void Reset()
 	{
-		SetValue(0);
+		Value = 0;
 		SetProcess(false);
 		EmitSignal("EndCircleProgress", FeatureName);
 	}

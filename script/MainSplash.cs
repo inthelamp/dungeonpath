@@ -37,7 +37,7 @@ public class MainSplash : Node
 		anim.Stop();
 	}
 
-	private void OnStartButtonPressed()
+	public void OnStartButtonPressed()
 	{
 		var global = (Global)GetNode("/root/Global");
 		global.GoToScene(this, "res://scene/StageSplash.tscn");
@@ -45,7 +45,7 @@ public class MainSplash : Node
 	
 	//Start SplashAnimation after a delay that 
 	//makes time to record a screencast 
-	private void OnDelayTimeout()
+	public void OnDelayTimeout()
 	{
 		var anim = (AnimationPlayer)GetNode("SplashAnimation");
 		anim.Play();

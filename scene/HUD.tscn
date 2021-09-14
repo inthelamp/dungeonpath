@@ -151,10 +151,12 @@ margin_left = -110.0
 margin_top = -223.0
 margin_right = 110.0
 margin_bottom = -178.0
+focus_mode = 0
 custom_fonts/font = SubResource( 3 )
 custom_colors/font_color = Color( 0.641578, 0.867188, 0.342133, 1 )
 custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
 custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+enabled_focus_mode = 0
 text = "Quit"
 
 [node name="MenuButton" type="MenuButton" parent="."]
@@ -168,9 +170,11 @@ custom_colors/font_color_hover = Color( 0.136383, 0.851562, 0.633656, 1 )
 text = "Menu"
 icon = ExtResource( 10 )
 items = [ "Sound", ExtResource( 11 ), 0, false, false, 0, 0, null, "", false, "Key Map", ExtResource( 12 ), 0, true, false, 1, 0, null, "", false, "Separator", null, 0, false, false, 2, 0, null, "", true, "Exit", ExtResource( 13 ), 0, false, false, 3, 0, null, "", false ]
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Menu" type="Node" parent="."]
-editor/display_folded = true
 
 [node name="KeyMapping" type="WindowDialog" parent="Menu"]
 modulate = Color( 0.84114, 0.953125, 0.748352, 1 )

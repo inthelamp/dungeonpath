@@ -41,11 +41,11 @@ public class Mob : Living
 		CurrentHP = MaxHP;
 		CurrentMP = MaxMP;
 		var hp = (HealthPoint)GetNode("HealthPoint");
-		hp.SetMax(MaxHP);
-		hp.SetValue(CurrentHP);
+		hp.MaxValue = MaxHP;
+		hp.Value = CurrentHP;
 		var mp = (MagicPoint)GetNode("MagicPoint");
-		mp.SetMax(MaxMP);
-		mp.SetValue(CurrentMP);
+		mp.MaxValue = MaxMP;
+		mp.Value = CurrentMP;
 	}
 
 	public override void SetMobLockedOn(Player player)
@@ -103,14 +103,14 @@ public class Mob : Living
 	//the damage decrease the player's HP in the end.
 	public override int GetAttackPoints()
 	{
-        //The constant number can be considerd later to adjust the game balance		
+		//The constant number can be considerd later to adjust the game balance		
 		return (int)(MaxHP/10);
 	}
 
-    //Give player some experience points when this mob is removed.
-    //requiredExp is the required experience points for player to level up
-    // and the experience points the mob gives player is to divide requiredExp by
-    // the number of mobs for player to hunt for its level-up.
+	//Give player some experience points when this mob is removed.
+	//requiredExp is the required experience points for player to level up
+	// and the experience points the mob gives player is to divide requiredExp by
+	// the number of mobs for player to hunt for its level-up.
 	public override float GetEXP()
 	{
 		var level = Level + 1;
@@ -125,7 +125,7 @@ public class Mob : Living
 		CurrentHP -= damagePoints;
 
 		var hp = (HealthPoint)GetNode("HealthPoint");
-		hp.SetValue(Convert.ToSingle(CurrentHP));
+		hp.Value = Convert.ToSingle(CurrentHP);
 
 		//Display the damage points which reduce HP.
 		ShowDamagePoints(damagePoints);
@@ -176,7 +176,7 @@ public class Mob : Living
 		var damagePointsDisplay = (ShortMessage)damagePointsDisplayScene.Instance();
 
 		//update the label
-		damagePointsDisplay.SetText("-" + damagePoints.ToString());
+		damagePointsDisplay.Text = "-" + damagePoints.ToString();
 		AddChild(damagePointsDisplay);
 		damagePointsDisplay.Start();
 	}

@@ -35,7 +35,7 @@ public class FlyingMob : Mob
 
 	public override void _Ready()
 	{
-		MobSprite = (Sprite)GetNode("Sprite");
+		MovingSprite = (Sprite)GetNode("Sprite");
 
 		if (MovingTypes == null)
 		{
@@ -54,7 +54,7 @@ public class FlyingMob : Mob
 		{
 			newAnim = "dead";
 			var posY = Position.y + Constants.FallingDeadSpeed*delta;
-			if (posY > GetViewport().GetSize().y) //If it is greater than height, then free it.
+			if (posY > GetViewport().Size.y) //If it is greater than height, then free it.
 			{
 				QueueFree();
 			}
@@ -62,7 +62,7 @@ public class FlyingMob : Mob
 		else
 		{
 			newAnim = "fly";
-			SpawnLocation.SetOffset(SpawnLocation.GetOffset() + Constants.RandRand(MinSpeed, MaxSpeed) * delta);
+			SpawnLocation.Offset = SpawnLocation.Offset + Constants.RandRand(MinSpeed, MaxSpeed) * delta;
 			var direction = SpawnLocation.Rotation;
 			Rotation = direction;
 			Position = SpawnLocation.Position;
