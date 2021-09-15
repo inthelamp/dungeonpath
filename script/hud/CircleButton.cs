@@ -5,7 +5,7 @@
 /*                           DungeonPath                                 */
 /*             https://github.com/inthelamp/dungeonpath                  */
 /*************************************************************************/
-/* Copyright (c) 2018-2019 Dong Won Kim.                                 */
+/* Copyright (c) 2018-2021 Dong Won Kim.                                 */
 /*                                                                       */
 /* Permission is hereby granted, free of charge, to any person obtaining */
 /* a copy of this software and associated documentation files (the       */
