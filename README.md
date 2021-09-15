@@ -14,6 +14,9 @@ Development Environment
 	Ubuntu 20.04.3 LTS
 	.NET SDK 5.0
 	Godot game engine v3.3
+	
+To build the game, in Godot's Editor go to Editor Settings menu:
+Set Mono -> Builds -> Build Tool to dotnet CLI.
 
 [![](https://github.com/inthelamp/dungeonpath/blob/master/screenshot.png)](https://www.youtube.com/watch?v=uri3mZ_ihxI)
 
